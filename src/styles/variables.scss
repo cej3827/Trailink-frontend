@@ -1,0 +1,29 @@
+// // src/styles/variables.scss
+
+// /* 색상 변수 */
+// $primary-color: #3498db;
+// $secondary-color: #2ecc71;
+// $accent-color: #e74c3c;
+// $background-color: #f4f4f4;
+// $text-color: #333;
+// $white-color: #fff;
+
+// /* 폰트 크기 변수 */
+// $font-small: 0.875rem; /* 14px */
+// $font-medium: 1rem; /* 16px */
+// $font-large: 1.25rem; /* 20px */
+// $font-xlarge: 1.5rem; /* 24px */
+
+// /* 기본 여백 */
+// $space-xs: 8px;
+// $space-sm: 16px;
+// $space-md: 32px;
+// $space-lg: 64px;
+
+// /* 믹스인 - 반응형 텍스트 크기 */
+// @mixin responsive-text($size) {
+//   font-size: $size;
+//   @media (max-width: 768px) {
+//     font-size: $size - 2px;
+//   }
+// }

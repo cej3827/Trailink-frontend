@@ -1,0 +1,18 @@
+.category-page {
+    padding: 20px;
+  
+    .back-button {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+    }
+  
+    h1 {
+      margin-bottom: 1.5rem;
+    }
+  }
+  

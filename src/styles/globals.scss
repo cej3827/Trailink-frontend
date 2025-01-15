@@ -1,0 +1,63 @@
+// 여러 컴포넌트 스타일을 @use 구문을 통해 가져오기
+@use 'components/sidebar';
+@use 'components/bookmarkForm';
+@use 'components/bookmarkList';
+@use 'components/categoryForm';
+@use 'components/userProfile';
+@use 'components/loginForm';
+@use 'components/followingActivityList';
+@use 'components/categoryPage';
+@use 'components/categoryFolders';
+@use 'components/header';
+@use 'components/userSearch';
+
+//전역 CSS 변수
+:root {
+  --primary-color: #17457a;
+  --secondary-color: #2b8ccd;
+  --background-color: #f5f7fa;
+  --text-color: #484747;
+  --border-color: #e1e4e8;
+}
+
+// 모든 요소에 대해
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  height: 100%;
+}
+
+.app-container {
+  display: flex;
+  max-width: 85%;
+  margin: 2rem auto 0;
+  height: 85%; 
+}
+
+main {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+  overflow-y: auto; 
+  height: 100%;
+}
+
+.home-page {
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  select {
+    margin-bottom: 1rem;
+  }
+}
