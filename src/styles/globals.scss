@@ -2,7 +2,6 @@
 @use 'components/sidebar';
 @use 'components/bookmarkForm';
 @use 'components/bookmarkList';
-@use 'components/categoryForm';
 @use 'components/userProfile';
 @use 'components/loginForm';
 @use 'components/followingActivityList';
@@ -11,6 +10,9 @@
 @use 'components/header';
 @use 'components/userSearch';
 
+// @import 'tailwindcss/base';
+// @import 'tailwindcss/components';
+// @import 'tailwindcss/utilities';
 //전역 CSS 변수
 :root {
   --primary-color: #17457a;

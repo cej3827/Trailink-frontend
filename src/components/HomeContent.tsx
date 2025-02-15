@@ -1,7 +1,5 @@
-'use client';
-
 import BookmarkForm from './BookmarkForm'; //북마크 추가 폼 
-// import CategoryForm from './CategoryForm'; //카테고리 추가 폼
+import CategoryForm from './CategoryForm'; //카테고리 추가 폼
 import FollowingActivityList from './FollowingActivityList'; //팔로잉 활동 리스트
 import { useUserStore } from '../store/useUserStore';//상태 관리 훅
 
@@ -16,7 +14,7 @@ export default function HomeContent() {
         <>
           <h1>Welcome, {userName}</h1>
           <BookmarkForm />
-          {/* <CategoryForm /> */}
+          <CategoryForm />
           <h2>Following Activity</h2>
           <FollowingActivityList />
         </>

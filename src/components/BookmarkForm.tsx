@@ -1,78 +1,91 @@
-import { useState } from 'react'
+import { useForm, Controller } from 'react-hook-form';
 import { useCategoryStore } from '../store/useCategoryStore'
 import { addBookmark } from '../api/bookmarkAPI'
 
-function BookmarkForm() {
-    const [form, setForm] = useState({
-        category_id: null,
-        bookmark_title: '',
-        bookmark_url: '',
-        bookmark_description: null,
-    })
+interface BookmarkFormData {
+    category_id: number;
+    bookmark_title: string;
+    bookmark_url: string;
+    bookmark_description: string;
+}
 
+function BookmarkForm() {
     const { categories } = useCategoryStore();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const {name, value} = e.target;
-        setForm((prev) => ({ ...prev, [name]: value}));
-    }
+    const { control, handleSubmit, formState: { errors }, reset } = useForm<BookmarkFormData>();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
+    const onSubmit = async (data: BookmarkFormData) => {
         try {
-            const result = await addBookmark(form);
-            alert('Bookmark added successfully!');
-            console.log(result);
+          const result = await addBookmark(data);
+          alert('북마크가 성공적으로 추가되었습니다!');
+          console.log(result);
+          reset(); // 폼 초기화
         } catch (error) {
-            alert('falied to add bookmark.')
+          alert('북마크 추가에 실패했습니다.');
         }
     };
 
-    return (
-    <form onSubmit={handleSubmit} className="bookmark-form">
+return (
+    <form onSubmit={handleSubmit(onSubmit)} className="bookmark-form">
         <div>
-            <input
-                type="text"
+            <Controller
                 name="bookmark_title"
-                placeholder="Title"
-                value={form.bookmark_title}
-                onChange={handleChange}
-                required
+                control={control}
+                rules={{ required: "제목은 필수입니다." }}
+                render={({ field }) => (
+                    <input
+                        {...field}
+                        type="text"
+                        placeholder="Title"
+                    />
+                )}
             />
+            {errors.bookmark_title && <p>{errors.bookmark_title.message}</p>}
         </div>
         <div>
-            <input 
-                type="url"
+            <Controller
                 name="bookmark_url"
-                placeholder="URL"
-                value={form.bookmark_url}
-                onChange={handleChange}
-                required
+                control={control}
+                rules={{ required: "URL은 필수입니다." }}
+                render={({ field }) => (
+                    <input 
+                        {...field}
+                        type="url"
+                        placeholder="URL"
+                    />
+                )}
             />
+            {errors.bookmark_url && <p>{errors.bookmark_url.message}</p>}
         </div>
         <div>
-            <textarea 
+            <Controller
                 name="bookmark_description"
-                placeholder="Description"
-                value={form.bookmark_description ?? ''}
-                onChange={handleChange}
+                control={control}
+                render={({ field }) => (
+                    <textarea 
+                        {...field}
+                        placeholder="Description"
+                    />
+                )}
             />
         </div>
         <div>
-            <select 
+            <Controller
                 name="category_id"
-                value={form.category_id ?? ''}
-                onChange={handleChange}
-                required
-            >
-                <option value="">Select Category</option>
-                {categories.map((category) => (
-                <option key={category.category_id} value={category.category_id}>
-                    {category.category_name}
-                </option>
-                ))}
-            </select>
+                control={control}
+                rules={{ required: "카테고리 선택은 필수입니다." }}
+                render={({ field }) => (
+                    <select {...field}>
+                        <option value="">Select Category</option>
+                        {categories.map((category) => (
+                        <option key={category.category_id} value={category.category_id}>
+                            {category.category_name}
+                        </option>
+                        ))}
+                    </select>
+                )}
+            />
+            {errors.category_id && <p>{errors.category_id.message}</p>}
         </div>
         <button type="submit">Add Bookmark</button>
     </form>

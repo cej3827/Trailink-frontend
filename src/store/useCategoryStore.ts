@@ -2,6 +2,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 import { create } from 'zustand'; // 상태관리 훅 생성
 import { useUserStore } from './useUserStore';
+import { addCategory } from '../api/categoryAPI';
 
 interface Bookmark {
   bookmark_id: number;
@@ -19,6 +20,7 @@ interface CategoryBookmark {
 interface Category {
   category_id: number;
   category_name: string;
+  category_description: string;
 }
 
 // 상태 관리 인터페이스
@@ -27,6 +29,7 @@ interface CategoryState {
   categoryBookmarks: CategoryBookmark[];  // 각 카테고리별 북마크 목록
   fetchCategoryBookmark: (categoryId: number) => Promise<CategoryBookmark | null>; // 특정 카테고리의 북마크 가져오기
   fetchCategories: () => Promise<void>; // 모든 카테고리 가져오기
+  addCategory: (category: Category) => void;
 }
 
 // 상태 관리 훅 생성
@@ -96,4 +99,16 @@ export const useCategoryStore = create<CategoryState>((set) => ({
       console.error('Error fetching all categories:', error);
     }
   },
+
+  addCategory: async (category: Category) => {
+    try {
+      const newCategory = await addCategory(category);
+      set((state) => ({
+        categories: [...state.categories, category]
+      }));
+    } catch(error) {
+      console.error('Error add category: ', error);
+    }
+  }
+  // addCategory: (category) => set((state) => ({ categories: [...state.categories, category] })),
 }));

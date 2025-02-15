@@ -5,7 +5,7 @@ interface AddBookmarkPayload {
     bookmark_title: string;
     bookmark_url: string;
     bookmark_description: string | null;
-  }
+}
 
 export const addBookmark = async (payload: AddBookmarkPayload) => {
     try {
