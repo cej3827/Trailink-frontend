@@ -4,7 +4,7 @@ import '../styles/globals.scss';
 import Sidebar from '../components/Sidebar'; //사이드바
 import Header from '../components/Header'; //헤더
 import LoginForm from '../components/LoginForm'; //로그인폼
-import LoadingSpinner from '../components/LoadingSpinner';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 import { useUserStore } from '../store/useUserStore';
 import { useRouter } from 'next/navigation';

@@ -16,7 +16,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(""); // 로그인 에러 메시지를 상태로 관리
-  const setUser = useUserStore((state) => state.setUser); // Zustand에서 setUser 함수를 가져와서 사용자 정보를 설정
+  const setUser = useUserStore((state) => state.setCurrentUser); // Zustand에서 setUser 함수를 가져와서 사용자 정보를 설정
   const router = useRouter();
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -32,7 +32,7 @@ export default function LoginForm() {
         setUser({
           userId: response.data.user_id,
           userName: response.data.user_name,
-          profileImg: response.data.profile_img,
+          profileImg: response.data.profile_img || '/default_profile.jpg',
           token: response.token,
         });
         router.replace("/");
@@ -85,8 +85,6 @@ export default function LoginForm() {
             id="userId"
             {...register("userId")}
             disabled={isLoading}
-            // value={userId}
-            // onChange={(e) => setUserId(e.target.value)} 
             placeholder="ID"
             required // 필수 입력 항목
           /> 
@@ -98,8 +96,6 @@ export default function LoginForm() {
             id="password"
             {...register("password")}
             disabled={isLoading}
-            // value={password}
-            // onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
             />

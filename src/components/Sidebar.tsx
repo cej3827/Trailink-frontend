@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
-  const { userName, profileImg, isLoggedIn } = useUserStore(); // 사용자 정보를 Zustand 스토어에서 가져옴
+  const { currentUser, isLoggedIn } = useUserStore(); // 사용자 정보를 Zustand 스토어에서 가져옴
   const { categories, fetchCategories} = useCategoryStore();  
   const defaultProfileImage = '/default_profile.jpg'; // 기본 프로필 이미지 경로
   const router = useRouter(); // 라우터 훅을 사용하여 페이지 이동 처리
@@ -39,8 +39,8 @@ const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="user-info" onClick={() => handleProfileClick()}>
-      <img src={profileImg || defaultProfileImage} alt={userName || 'User'} />
-        <h2>{userName}</h2>
+      <img src={currentUser?.profileImg || defaultProfileImage} alt={currentUser?.userName || 'User'} />
+        <h2>{currentUser?.userName}</h2>
       </div>
       <nav>
         <h3>Categories</h3>

@@ -1,7 +1,7 @@
 'use client';
 
 import Head from 'next/head';
-import LoadingSpinner from "@/src/components/LoadingSpinner";
+import LoadingSpinner from "@/src/components/common/LoadingSpinner";
 import LoginForm from "@/src/components/LoginForm"; //로그인폼 컴포넌트
 import { useUserStore } from "@/src/store/useUserStore"; //전역 상태 관리를 위한 사용자 스토어
 import { useRouter } from 'next/navigation'; //페이지 이동을 처리하기 위한 훅

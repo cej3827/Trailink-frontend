@@ -1,43 +1,47 @@
-.user-profile {
-    text-align: center;
+.userProfile {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
   
-    img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  
-      &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-      }
-    }
-  
-    h1 {
-      margin-bottom: 10px;
-      transition: color 0.2s ease-in-out;
-  
-      &:hover {
-        color: var(--primary-color);
-      }
-    }
-  
-    p {
-      margin-bottom: 5px;
-    }
-  
-    button {
-      background-color: var(--secondary-color);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 20px;
-      &:hover {
-        background-color: var(--secondary-color), 10%;
-      }
-    }
+.profileHeader {
+  align-items: center;
+  // margin-bottom: 20px;
+}
+
+.profileImage {
+  // width: 150px;
+  // height: 150px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   }
-  
+}
+
+.userName {
+  // margin-bottom: 10px;
+}
+
+.profileInfo {
+  // margin-bottom: 5px;
+}
+
+.profileActions {
+  button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin: 1rem;
+    // &:hover {
+    //   background-color: var(--secondary-color), 10%;
+    // }
+  }
+}

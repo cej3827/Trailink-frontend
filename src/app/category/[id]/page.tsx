@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'; //리엑트 훅 가져오기
 import { useParams, useRouter } from 'next/navigation'; // 라우팅 관련 훅
 import { useCategoryStore } from '../../../store/useCategoryStore'; //zustand를 사용하는 카테고리 스토어
 import BookmarkList from '../../../components/BookmarkList'; //북마크 목록을 렌더링하는 컴포넌트
-import LoadingSpinner from '../../../components/LoadingSpinner';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 export default function CategoryPage() {
   const { id } = useParams(); // URL 파라미터에서 id를 추출
