@@ -1,5 +1,6 @@
 'use client';
 
+import CategoryFolders from '@/src/components/profile/CategoryFolders';
 import UserProfile from '../../components/profile/UserProfile'; //사용자 프로필 컴포넌트
 import { useUserStore } from '@/src/store/useUserStore';
 import { useRouter } from 'next/navigation';
@@ -19,9 +20,9 @@ export default function ProfilePage() {
   //컴포넌트 렌더링
   return (
     <div className="profile-page">
-      {/* userId가 존재하는 경우에만 UserProfile 컴포넌트 렌더링*/}
+      {/* currentUser 존재하는 경우에만 UserProfile 컴포넌트 렌더링*/}
       {currentUser && <UserProfile id={currentUser.userId} />}
-      {/* <CategoryFolders userId={currentUser.id} />  */}
+      {currentUser && <CategoryFolders userId={currentUser.userId} /> }
     </div>
   );
 }

@@ -28,7 +28,7 @@ interface CategoryState {
   categories: Category[], // 전체 카테고리 목록
   categoryBookmarks: CategoryBookmark[];  // 각 카테고리별 북마크 목록
   fetchCategoryBookmark: (categoryId: number) => Promise<CategoryBookmark | null>; // 특정 카테고리의 북마크 가져오기
-  fetchCategories: () => Promise<void>; // 모든 카테고리 가져오기
+  fetchCategories: (userId: string) => Promise<void>; // 모든 카테고리 가져오기
   addCategory: (category: Category) => void;
 }
 
@@ -66,8 +66,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
     }
   },
 
-  // 모든 카테고리 가져오는 함수
-  fetchCategories: async () => {
+  // 사용자의 모든 카테고리 가져오는 함수
+  fetchCategories: async (userId) => {
     try {
       // 사용자 토큰을 상태에서 가져옴
       const token = useUserStore.getState().token;
@@ -76,8 +76,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
         return; // 토큰 없으면 로그인
       }
 
-      // 서버에서 모든 카테고리 데이터 가져옴
-      const response = await fetch(`${API_BASE_URL}/api/categories`, {
+      // api 호출
+      const response = await fetch(`${API_BASE_URL}/api/categories?userId=${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`, // 헤더에 토큰 포함
           'Content-Type': 'application/json'

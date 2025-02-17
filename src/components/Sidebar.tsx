@@ -14,10 +14,10 @@ const Sidebar = () => {
 
   // 사용자가 로그인한 경우 카테고리 데이터를 가져옴
   useEffect(() => {
-    if (isLoggedIn) {
-      fetchCategories();
+    if (isLoggedIn && currentUser?.userId) {
+      fetchCategories(currentUser.userId);
     }
-  }, [isLoggedIn, fetchCategories]);
+  }, [isLoggedIn, currentUser, fetchCategories]);
 
   // 카테고리 클릭 시 해당 카테고리 페이지로 이동
   const handleCategoryClick = (categoryId: number ) => {
