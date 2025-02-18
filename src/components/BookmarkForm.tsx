@@ -27,7 +27,9 @@ function BookmarkForm() {
 
 return (
     <form onSubmit={handleSubmit(onSubmit)} className="bookmark-form">
-        <div>
+        {/* <h2>북마크 추가</h2> */}
+        <div className="form-group">
+            <label htmlFor="bookmark_title">Title </label>
             <Controller
                 name="bookmark_title"
                 control={control}
@@ -36,13 +38,15 @@ return (
                     <input
                         {...field}
                         type="text"
+                        id="bookmark_title"
                         placeholder="Title"
                     />
                 )}
             />
             {errors.bookmark_title && <p>{errors.bookmark_title.message}</p>}
         </div>
-        <div>
+        <div className="form-group">
+            <label htmlFor="bookmark_url">URL </label>
             <Controller
                 name="bookmark_url"
                 control={control}
@@ -51,19 +55,22 @@ return (
                     <input 
                         {...field}
                         type="url"
+                        id="bookmark_url"
                         placeholder="URL"
                     />
                 )}
             />
             {errors.bookmark_url && <p>{errors.bookmark_url.message}</p>}
         </div>
-        <div>
+        <div className="form-group">
+            <label htmlFor="bookmark_description">Description </label>
             <Controller
                 name="bookmark_description"
                 control={control}
                 render={({ field }) => (
                     <textarea 
                         {...field}
+                        id="bookmark_description"
                         placeholder="Description"
                     />
                 )}

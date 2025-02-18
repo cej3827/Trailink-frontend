@@ -24,7 +24,8 @@ function CategoryForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="bookmark-form">
-            <div>
+            <div className="form-group">
+                <label htmlFor="category_name">Category Name</label>
                 <Controller
                     name="category_name"
                     control={control}
@@ -34,12 +35,14 @@ function CategoryForm() {
                             {...field}
                             type='text'
                             placeholder='Category Name'
+                            id='category_name'
                         />
                     )}
                 />
                 {errors.category_name && <p>{errors.category_name.message}</p>}
             </div>
-            <div>
+            <div className="form-group">
+                <label htmlFor="category_description">Description </label>
                 <Controller
                     name="category_description"
                     control={control}
@@ -47,6 +50,7 @@ function CategoryForm() {
                         <textarea
                             {...field}
                             placeholder='Description'
+                            id='category_description'
                         />
                     )}
                 />
