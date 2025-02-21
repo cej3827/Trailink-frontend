@@ -1,4 +1,6 @@
 .bookmark-form {
+  display: flex;
+  flex-direction: column;
   max-width: 80%;
   margin: 1rem auto;
   padding: 2rem;
@@ -8,32 +10,34 @@
   }
 
   .form-group {
+    width: 100%;
     margin-bottom: 1rem;
 
     label {
       display: block;
       margin-bottom: 0.3rem;
       font-weight: 600;
-      color: #333;
+      color: var(--text-color);
     }
 
-    input, textarea, select {
+    input, textarea {
       width: 100%;
       padding: 0.7rem;
-      border: 1px solid #ced4da;
+      border: 1px solid var(--primary-color);
       border-radius: 4px;
       font-size: 0.8rem;
       resize: none;
     }
-  }
 
-  select {
-    appearance: none;
-    padding: 0.6rem 1rem;
+    select {
+      appearance: none;
+      padding: 0.6rem 1rem;
+      margin-bottom: 0.2rem;
+    }
   }
 
   button {
-    width: 100%;
+    width: 50%;
     padding: 0.8rem 1rem;
     background-color: var(--primary-color);
     color: white;
@@ -42,6 +46,7 @@
     font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
+    margin: auto;
     margin-top: 0.8rem;
   }
 

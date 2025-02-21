@@ -29,6 +29,24 @@ return (
     <form onSubmit={handleSubmit(onSubmit)} className="bookmark-form">
         {/* <h2>북마크 추가</h2> */}
         <div className="form-group">
+            <Controller
+                name="category_id"
+                control={control}
+                rules={{ required: "카테고리 선택은 필수입니다." }}
+                render={({ field }) => (
+                    <select {...field}>
+                        <option value="">Select Category</option>
+                        {categories.map((category) => (
+                        <option key={category.category_id} value={category.category_id}>
+                            {category.category_name}
+                        </option>
+                        ))}
+                    </select>
+                )}
+            />
+            {errors.category_id && <p>{errors.category_id.message}</p>}
+        </div>
+        <div className="form-group">
             <label htmlFor="bookmark_title">Title </label>
             <Controller
                 name="bookmark_title"
@@ -75,24 +93,6 @@ return (
                     />
                 )}
             />
-        </div>
-        <div>
-            <Controller
-                name="category_id"
-                control={control}
-                rules={{ required: "카테고리 선택은 필수입니다." }}
-                render={({ field }) => (
-                    <select {...field}>
-                        <option value="">Select Category</option>
-                        {categories.map((category) => (
-                        <option key={category.category_id} value={category.category_id}>
-                            {category.category_name}
-                        </option>
-                        ))}
-                    </select>
-                )}
-            />
-            {errors.category_id && <p>{errors.category_id.message}</p>}
         </div>
         <button type="submit">Add Bookmark</button>
     </form>

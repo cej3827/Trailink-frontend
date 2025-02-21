@@ -13,26 +13,28 @@ export default function HomeContent() {
       {/* 사용자가 로그인한 경우 */}
       {isLoggedIn ? (
         <>
-          <h1>Welcome, {currentUser?.userName}</h1>
+          <h1>Welcome, {currentUser?.userName} 👋</h1>
           {/* 탭 버튼 */}
-          <div className="tab-bar">
-            <button 
-              className={activeTab === 'bookmark' ? 'active' : ''} 
-              onClick={() => setActiveTab('bookmark')}
-            >
-              북마크 추가
-            </button>
-            <button 
-              className={activeTab === 'category' ? 'active' : ''} 
-              onClick={() => setActiveTab('category')}
-            >
-              카테고리 추가
-            </button>
-          </div>
+          <div>
+            <div className="tab-bar">
+              <button 
+                className={activeTab === 'bookmark' ? 'active' : ''} 
+                onClick={() => setActiveTab('bookmark')}
+              >
+                북마크 추가
+              </button>
+              <button 
+                className={activeTab === 'category' ? 'active' : ''} 
+                onClick={() => setActiveTab('category')}
+              >
+                카테고리 추가
+              </button>
+            </div>
 
-          {/* 선택된 탭에 따라 다른 폼 표시 */}
-          <div className="tab-content">
-            {activeTab === 'bookmark' ? <BookmarkForm /> : <CategoryForm />}
+            {/* 선택된 탭에 따라 다른 폼 표시 */}
+            <div className='form-container'>
+              {activeTab === 'bookmark' ? <BookmarkForm /> : <CategoryForm />}
+            </div>
           </div>
 
           <h2>Following Activity</h2>
