@@ -16,12 +16,13 @@ function BookmarkForm() {
 
     const onSubmit = async (data: BookmarkFormData) => {
         try {
-          const result = await addBookmark(data);
-          alert('북마크가 성공적으로 추가되었습니다!');
-          console.log(result);
-          reset(); // 폼 초기화
+            const result = await addBookmark(data);
+            alert('북마크가 성공적으로 추가되었습니다!');
+            console.log(result);
+            reset(); // 폼 초기화
         } catch (error) {
-          alert('북마크 추가에 실패했습니다.');
+            console.error("북마크 추가 실패:", error);
+            alert('북마크 추가에 실패했습니다.');
         }
     };
 

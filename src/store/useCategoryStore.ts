@@ -103,8 +103,9 @@ export const useCategoryStore = create<CategoryState>((set) => ({
   addCategory: async (category: Category) => {
     try {
       const newCategory = await addCategory(category);
+      //***
       set((state) => ({
-        categories: [...state.categories, category]
+        categories: [...state.categories, newCategory]
       }));
     } catch(error) {
       console.error('Error add category: ', error);

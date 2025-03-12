@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { useCategoryStore } from "./useCategoryStore";
+// import { useCategoryStore } from "./useCategoryStore";
 
 interface UserProfile {
   userId: string;
