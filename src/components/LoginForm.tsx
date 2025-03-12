@@ -39,8 +39,11 @@ export default function LoginForm() {
       } else {
         setError(response.message || "로그인에 실패했습니다.");
       }
-    } catch (err: any) {
-      setError(err.message || "예기치 않은 오류가 발생했습니다.");
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error 
+        ? err.message 
+        : "예기치 않은 오류가 발생했습니다.";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -77,6 +80,8 @@ export default function LoginForm() {
   return (
     <div className="login-form">
       <h1>Login</h1>
+      {/* {error && <div className="error-message">{error}</div>} */}
+      {error && <div>{error}</div>}
       {/* 폼 제출 시 handleLogin 함수 실행 */}
       <form onSubmit={handleSubmit(onSubmit)} >
         <div>
@@ -106,7 +111,8 @@ export default function LoginForm() {
           type="submit"
           disabled={isLoading}
         >
-        Log in
+        {/* Log in */}
+        {isLoading ? "로그인 중..." : "Log in"}
         </button>
       </form>
     </div>

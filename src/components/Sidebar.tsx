@@ -5,6 +5,7 @@ import { useUserStore } from '../store/useUserStore';
 import { useCategoryStore } from '../store/useCategoryStore';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image'; 
 
 const Sidebar = () => {
   const { currentUser, isLoggedIn } = useUserStore(); // 사용자 정보를 Zustand 스토어에서 가져옴
@@ -39,7 +40,12 @@ const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="user-info" onClick={() => handleProfileClick()}>
-      <img src={currentUser?.profileImg || defaultProfileImage} alt={currentUser?.userName || 'User'} />
+      <Image 
+        src={currentUser?.profileImg || defaultProfileImage} 
+        alt={currentUser?.userName || 'User'} 
+        width={40}
+        height={40}
+      />
         <h2>{currentUser?.userName}</h2>
       </div>
       <nav>

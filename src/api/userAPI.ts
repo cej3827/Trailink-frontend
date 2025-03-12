@@ -37,16 +37,20 @@ export const loginUser = async (userId: string, password: string): Promise<Login
 
     // 서버응답 성공 상태가 아닐 경우
     if (!response.ok) {
-      const errorData = await response.json(); //에러 메시지 파싱
-      throw new Error(errorData.message || "Login failed"); //에러 메시지 던짐
+      const errorData = await response.json().catch(() => null); //에러 메시지 파싱
+      throw new Error(errorData?.message || "Login failed"); //에러 메시지 던짐
     }
 
     //서버로부터 받은 데이터를 json형식으로 반환
     return await response.json();
-  } catch (error: any) {
+  } catch (error: unknown) {
     // 로그인 요청 중 에러 발생할 경우 콘솔에 출력
     console.error("Login failed:", error);
-    throw new Error(error.message);
+
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("An unknown error occurred.");
   }
 };
 
@@ -59,13 +63,17 @@ export const userInfo = async (userId: string): Promise<UserResponse> => {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to fetch user data.");
+      const errorData = await response.json().catch(() => null);
+      throw new Error(errorData?.message || "Failed to fetch user data.");
     }
 
     return await response.json(); 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Failed to fetch user data:", error);
-    throw new Error(error.message);
+    
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("An unknown error occurred.");
   }
 };

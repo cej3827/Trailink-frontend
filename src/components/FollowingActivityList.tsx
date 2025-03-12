@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useActivityStore } from '../store/useActivityStore';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image'; 
 
 function FollowingActivityList() {
   // useActivityStore에서 상태 및 함수 가져오기
@@ -14,9 +15,9 @@ function FollowingActivityList() {
   }, [fetchActivities]);
 
   //활동 항목에서 프로필을 클릭했을 때 처리하는 함수
-  const handleProfileClick = (activityId: number) => {
+  const handleProfileClick = (userId: string) => {
     //프로필로이동하는로직
-    // router.push(`/profile/${userId}`); // userId로 프로필 페이지로 이동
+    router.push(`/profile/${userId}`); // userId로 프로필 페이지로 이동
   };
 
   // 카테고리 항목을 클릭했을 때 처리하는 함수
@@ -30,6 +31,12 @@ function FollowingActivityList() {
     }
   };
 
+  // 에러 메시지 표시 추가
+  if (error) {
+    // return <div className="error-message">{error}</div>;
+    return <div>{error}</div>
+  }
+
   if (activities.length === 0) {
     return <div>No activities</div>; // 활동이 없으면 메시지 표시
   }
@@ -41,14 +48,16 @@ function FollowingActivityList() {
       {activities.map((activity) => (
         <li key={activity.activity_id} className="following-activity-item">
           {/* 사용자의 프로필 이미지 */}
-          <img
+          <Image
             src={activity.user_profile_img}
             alt={activity.user_name} 
             className="following-avatar"
+            width={40}
+            height={40}
           />
           <div className="following-activity-info">
             {/* 사용자 이름 클릭 시 프로필 페이지로 이동 */}
-            <span className="following-name" onClick={() => handleProfileClick(activity.activity_id)}>
+            <span className="following-name" onClick={() => handleProfileClick(activity.user_id)}>
               {activity.user_name}
             </span>
             <span className="activity-description">

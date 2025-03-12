@@ -18,6 +18,7 @@ function CategoryForm() {
             console.log(result);
             reset(); // 폼 초기화
         } catch (error) {
+            console.error("카테고리 추가 실패: ", error);
             alert('카테고리 추가에 실패했습니다.');
         }
     };
