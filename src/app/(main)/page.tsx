@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/src/store/useUserStore';
-import HomeContent from '../components/HomeContent'
+import HomeContent from '../../components/HomeContent'
 
 // 컴포넌트를 기본 내보내기
 export default function Page() {

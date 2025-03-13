@@ -1,7 +1,7 @@
 'use client';
 
 import CategoryFolders from '@/src/components/profile/CategoryFolders';
-import UserProfile from '../../components/profile/UserProfile'; //사용자 프로필 컴포넌트
+import UserProfile from '@/src/components/profile/UserProfile'; //사용자 프로필 컴포넌트
 import { useUserStore } from '@/src/store/useUserStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';

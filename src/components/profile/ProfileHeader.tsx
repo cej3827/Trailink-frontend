@@ -16,7 +16,7 @@ const ProfileHeader = ({ userProfile }: ProfileHeaderProps) => (
       height={100}
       className="profileImage"
     />
-    <h1 className="userName">{userProfile.userName}</h1>
+    {/* <h1 className="userName">{userProfile.userName}</h1> */}
   </div>
 );
 
