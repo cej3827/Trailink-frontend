@@ -18,7 +18,7 @@ const Sidebar = () => {
     if (isLoggedIn && currentUser?.userId) {
       fetchCategories(currentUser.userId);
     }
-  }, [isLoggedIn, currentUser, fetchCategories]);
+  }, [isLoggedIn, currentUser, fetchCategories, categories]);
 
   // 카테고리 클릭 시 해당 카테고리 페이지로 이동
   const handleCategoryClick = (categoryId: number ) => {

@@ -2,16 +2,16 @@
 
 import React, { useEffect, useState } from 'react'; //리엑트 훅 가져오기
 import { useParams, useRouter } from 'next/navigation'; // 라우팅 관련 훅
-import { useCategoryStore } from '../../../store/useCategoryStore'; //zustand를 사용하는 카테고리 스토어
-import BookmarkList from '../../../components/BookmarkList'; //북마크 목록을 렌더링하는 컴포넌트
-import LoadingSpinner from '../../../components/common/LoadingSpinner';
+import { useCategoryStore } from '../../../../store/useCategoryStore'; //zustand를 사용하는 카테고리 스토어
+import BookmarkList from '../../../../components/BookmarkList'; //북마크 목록을 렌더링하는 컴포넌트
+import LoadingSpinner from '../../../../components/common/LoadingSpinner';
 
 export default function CategoryPage() {
   const { id } = useParams(); // URL 파라미터에서 id를 추출
   const categoryId = Number(id); // 문자열 id를 숫자로 변환
   const router = useRouter(); //라우터 객체
   const { fetchCategoryBookmark, categoryBookmarks} = useCategoryStore();//스토어에서 액션과 상태를 가져옴
-  const [loading, setLoading] = useState(categoryBookmarks.length === 0); //로딩 관리 state
+  const [loading, setLoading] = useState(true); //로딩 관리 state
 
   //현재 카테고리를 상태에서 검색
   const category = categoryBookmarks.find((c) => c.category_id === categoryId); 
