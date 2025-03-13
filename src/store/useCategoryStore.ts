@@ -2,7 +2,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 import { create } from 'zustand'; // 상태관리 훅 생성
 import { useUserStore } from './useUserStore';
-import { addCategory } from '../api/categoryAPI';
+import { addCategory as addCategoryAPI } from '../api/categoryAPI';
 
 interface Bookmark {
   bookmark_id: number;
@@ -102,10 +102,11 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 
   addCategory: async (category: Category) => {
     try {
-      const newCategory = await addCategory(category);
-      //***
+      const apiResponse = await addCategoryAPI(category);
+      console.log('API 응답:', apiResponse); // 응답 확인
+
       set((state) => ({
-        categories: [...state.categories, newCategory]
+        categories: [...state.categories, apiResponse]
       }));
     } catch(error) {
       console.error('Error add category: ', error);
