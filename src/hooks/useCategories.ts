@@ -3,7 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import * as categoryAPI from '@/api/categoryAPI'
 import { QUERY_KEYS } from '@/lib/constants'
-import { CreateCategoryData, UpdateCategoryData, Category } from '@/types'
+import { Category } from '@/types'
 import { toast } from 'react-hot-toast'
 
 /**

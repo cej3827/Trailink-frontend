@@ -44,7 +44,8 @@ export interface CreateBookmarkData {
   category_id: string
 }
 
-export interface UpdateBookmarkData extends Partial<CreateBookmarkData> {}
+// export interface UpdateBookmarkData extends Partial<CreateBookmarkData> {}
+export type UpdateBookmarkData = Partial<CreateBookmarkData>;
 
 export interface CreateCategoryData {
   category_name: string
@@ -53,7 +54,8 @@ export interface CreateCategoryData {
 //   isPublic: boolean
 }
 
-export interface UpdateCategoryData extends Partial<CreateCategoryData> {}
+// export interface UpdateCategoryData extends Partial<CreateCategoryData> {}
+export type UpdateCategoryData = Partial<CreateCategoryData>;
 
 // 로그인 요청 시
 export interface LoginCredentials {

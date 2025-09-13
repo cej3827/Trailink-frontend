@@ -14,7 +14,7 @@ import {
   FolderOpen, 
   Settings,
   ChevronLeft,
-  Menu
+  // Menu
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import styles from './Sidebar.module.scss'

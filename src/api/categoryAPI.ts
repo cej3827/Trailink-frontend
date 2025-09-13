@@ -37,7 +37,7 @@
 
 
 import { API_BASE_URL, getHeaders } from './index'
-import { Category, CreateCategoryData, UpdateCategoryData } from '@/types'
+import { CreateCategoryData, UpdateCategoryData } from '@/types'
 
 // 카테고리 목록 조회
 export async function getCategories() {

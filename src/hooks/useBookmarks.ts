@@ -132,7 +132,6 @@
 // }
 
 
-// src/hooks/useBookmarks.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import * as bookmarkAPI from '@/api/bookmarkAPI'  // 간단하게 import
 import { QUERY_KEYS } from '@/lib/constants'

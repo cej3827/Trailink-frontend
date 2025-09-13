@@ -4,7 +4,7 @@
 
 import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import { useUIStore } from '@/store/uiStore'
-import { useBookmarkUIStore } from '@/store/bookmarkStore'
+// import { useBookmarkUIStore } from '@/store/bookmarkStore'
 import SearchBar from '@/components2/ui/SearchBar/SearchBar'
 import Button from '@/components2/ui/Button/Button'
 import { useState } from 'react'

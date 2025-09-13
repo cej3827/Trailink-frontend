@@ -83,20 +83,20 @@
   }
 }
 
-// 다크모드 지원 (나중에 추가할 때 사용)
-[data-theme="dark"] & {
-  .layout {
-    background-color: color(gray-900);
-  }
+// // 다크모드 지원 (나중에 추가할 때 사용)
+// [data-theme="dark"] & {
+//   .layout {
+//     background-color: color(gray-900);
+//   }
   
-  .content {
-    background-color: color(gray-800);
-  }
+//   .content {
+//     background-color: color(gray-800);
+//   }
   
-  .overlay {
-    background-color: rgba(0, 0, 0, 0.7);
-  }
-}
+//   .overlay {
+//     background-color: rgba(0, 0, 0, 0.7);
+//   }
+// }
 
 // 접근성을 위한 포커스 스타일
 .content:focus-within {

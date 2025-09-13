@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import * as authAPI from '@/api/authAPI'
 import { QUERY_KEYS } from '@/lib/constants'
-import { LoginCredentials } from '@/types'
+// import { LoginCredentials } from '@/types'
 
 // 현재 로그인한 유저 정보를 가져오는 훅
 export function useCurrentUser() {

@@ -30,7 +30,7 @@
 // };
 
 import { API_BASE_URL, getHeaders } from './index'
-import { Bookmark, CreateBookmarkData, UpdateBookmarkData } from '@/types'
+import { CreateBookmarkData, UpdateBookmarkData } from '@/types'
 
 // 북마크 목록 조회
 export async function getBookmarks(params?: {
