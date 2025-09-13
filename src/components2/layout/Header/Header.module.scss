@@ -1,0 +1,140 @@
+// src/components/layout/Header/Header.module.scss
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: space(md) space(lg);
+  background: color(white);
+  border-bottom: 1px solid color(gray-200);
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: space(md);
+}
+
+.sidebarToggle {
+  @include respond-to(desktop) {
+    display: none; // 데스크톱에서는 숨김
+  }
+}
+
+.logo {
+  font-size: map-get($font-sizes, lg);
+  font-weight: map-get($font-weights, bold);
+  color: color(gray-900);
+  margin: 0;
+}
+
+.centerSection {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 space(lg);
+}
+
+.searchBar {
+  width: 100%;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: space(md);
+}
+
+.addButton {
+  gap: space(xs);
+}
+
+// 사용자 메뉴
+.userMenu {
+  position: relative;
+}
+
+.userButton {
+  gap: space(xs);
+  padding: space(xs) space(sm);
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: color(primary);
+  color: color(white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: map-get($font-sizes, sm);
+  font-weight: map-get($font-weights, medium);
+}
+
+.userName {
+  font-size: map-get($font-sizes, sm);
+  font-weight: map-get($font-weights, medium);
+  
+  @include respond-to(mobile) {
+    display: none; // 모바일에서는 이름 숨김
+  }
+}
+
+.userDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: space(xs);
+  width: 200px;
+  background: color(white);
+  border: 1px solid color(gray-200);
+  border-radius: 0.5rem;
+  box-shadow: map-get($shadows, lg);
+  padding: space(sm);
+  z-index: map-get($z-indexes, dropdown);
+}
+
+.userInfo {
+  padding: space(sm);
+}
+
+.userEmail {
+  font-size: map-get($font-sizes, sm);
+  color: color(gray-600);
+  @include truncate;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid color(gray-200);
+  margin: space(xs) 0;
+}
+
+.menuItem {
+  display: block;
+  width: 100%;
+  padding: space(sm);
+  border: none;
+  background: none;
+  text-align: left;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: map-get($font-sizes, sm);
+  transition: map-get($transitions, fast);
+  
+  &:hover {
+    background-color: color(gray-100);
+  }
+  
+  &.logout {
+    color: color(danger);
+    
+    &:hover {
+      background-color: rgba(color(danger), 0.1);
+    }
+  }
+}

@@ -1,0 +1,92 @@
+// src/components/bookmark/BookmarkForm/BookmarkForm.module.scss
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: space(lg);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(xs);
+}
+
+.label {
+  font-size: map-get($font-sizes, sm);
+  font-weight: map-get($font-weights, medium);
+  color: color(gray-700);
+}
+
+.input, .select, .textarea {
+  @include input-base;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.previewLoading {
+  font-size: map-get($font-sizes, xs);
+  color: color(gray-500);
+  font-style: italic;
+}
+
+.preview {
+  border: 1px solid color(gray-200);
+  border-radius: 0.375rem;
+  padding: space(md);
+  background: color(gray-50);
+}
+
+.previewTitle {
+  font-size: map-get($font-sizes, sm);
+  font-weight: map-get($font-weights, medium);
+  color: color(gray-700);
+  margin: 0 0 space(sm) 0;
+}
+
+.previewCard {
+  display: flex;
+  gap: space(md);
+  padding: space(sm);
+  background: color(white);
+  border-radius: 0.25rem;
+  border: 1px solid color(gray-200);
+}
+
+.previewImage {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+}
+
+.previewContent {
+  flex: 1;
+  
+  h5 {
+    font-size: map-get($font-sizes, sm);
+    font-weight: map-get($font-weights, medium);
+    margin: 0 0 space(xs) 0;
+    @include truncate(2);
+  }
+  
+  p {
+    font-size: map-get($font-sizes, xs);
+    color: color(gray-600);
+    margin: 0;
+    @include truncate(2);
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: space(md);
+  margin-top: space(lg);
+}

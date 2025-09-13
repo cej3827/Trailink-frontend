@@ -1,0 +1,112 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: color(gray-50);
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  position: relative;
+  height: calc(100vh - 64px); // 헤더 높이만큼 제외
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 30;
+  
+  @include respond-to(desktop) {
+    display: none; // 데스크톱에서는 오버레이 숨김
+  }
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: color(white);
+  margin-left: 250px; // 사이드바 너비
+  transition: margin-left map-get($transitions, base);
+  position: relative;
+  
+  @include respond-to(mobile) {
+    margin-left: 0; // 모바일에서는 사이드바가 오버레이되므로 마진 없음
+  }
+  
+  &.contentExpanded {
+    margin-left: 0;
+    
+    @include respond-to(mobile) {
+      margin-left: 0;
+    }
+  }
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: space(xl);
+  
+  @include respond-to(tablet) {
+    padding: space(lg);
+  }
+  
+  @include respond-to(mobile) {
+    padding: space(md);
+  }
+}
+
+// 사이드바가 열렸을 때 컨텐츠 영역 스타일링
+.layout:has(.sidebarOpen) {
+  .content {
+    @include respond-to(mobile) {
+      overflow: hidden; // 모바일에서 사이드바 열렸을 때 스크롤 방지
+    }
+  }
+}
+
+// 프린트 스타일
+@media print {
+  .layout {
+    .overlay {
+      display: none;
+    }
+    
+    .content {
+      margin-left: 0 !important;
+    }
+  }
+}
+
+// 다크모드 지원 (나중에 추가할 때 사용)
+[data-theme="dark"] & {
+  .layout {
+    background-color: color(gray-900);
+  }
+  
+  .content {
+    background-color: color(gray-800);
+  }
+  
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+// 접근성을 위한 포커스 스타일
+.content:focus-within {
+  outline: 2px solid color(primary);
+  outline-offset: -2px;
+}
+
+// 애니메이션 감소 설정을 고려한 스타일
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    transition: none;
+  }
+}

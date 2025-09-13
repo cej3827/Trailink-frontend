@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useUserStore } from "../store/useUserStore";
-import { loginUser } from "../api/userAPI"; // 사용자 로그인 API 호출 함수
+import { loginUser } from "../lib/api/userAPI"; // 사용자 로그인 API 호출 함수
 import { useRouter } from 'next/navigation';
 
 const loginSchema = z.object({

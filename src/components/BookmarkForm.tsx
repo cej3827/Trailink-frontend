@@ -1,6 +1,6 @@
 import { useForm, Controller } from 'react-hook-form';
 import { useCategoryStore } from '../store/useCategoryStore'
-import { addBookmark } from '../api/bookmarkAPI'
+import { addBookmark } from '../lib/api/bookmarkAPI'
 
 interface BookmarkFormData {
     category_id: number;

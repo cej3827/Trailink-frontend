@@ -1,0 +1,66 @@
+// src/app/login/page.module.scss
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: space(lg);
+  background: linear-gradient(135deg, color(gray-50), color(gray-100));
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: color(white);
+  padding: space(2xl);
+  border-radius: 0.5rem;
+  box-shadow: map-get($shadows, lg);
+}
+
+.title {
+  text-align: center;
+  font-size: map-get($font-sizes, 2xl);
+  font-weight: map-get($font-weights, bold);
+  color: color(gray-900);
+  margin: 0 0 space(xl) 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: space(lg);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(xs);
+  
+  label {
+    font-size: map-get($font-sizes, sm);
+    font-weight: map-get($font-weights, medium);
+    color: color(gray-700);
+  }
+}
+
+.input {
+  @include input-base;
+}
+
+.error {
+  padding: space(sm);
+  background: rgba(color(danger), 0.1);
+  color: color(danger);
+  border-radius: 0.25rem;
+  font-size: map-get($font-sizes, sm);
+  text-align: center;
+}
+
+.submitButton {
+  width: 100%;
+  height: 3rem;
+  font-size: map-get($font-sizes, base);
+}

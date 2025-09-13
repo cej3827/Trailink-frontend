@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useUserStore } from '../../store/useUserStore';
-import { userInfo } from '../../api/userAPI';
+import { userInfo } from '../../lib/api/userAPI';
 import ProfileHeader from './ProfileHeader';
 import ProfileInfo from './ProfileInfo';
 import ProfileActions from './ProfileActions';

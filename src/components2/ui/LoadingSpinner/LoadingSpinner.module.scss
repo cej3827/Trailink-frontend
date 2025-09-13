@@ -1,0 +1,175 @@
+// src/components/ui/LoadingSpinner/LoadingSpinner.module.scss
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.spinnerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: space(sm);
+}
+
+.fullScreen {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+}
+
+.overlay {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.spinner {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.spinnerBorder {
+  width: 100%;
+  height: 100%;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// 크기 변형
+.xs {
+  width: 12px;
+  height: 12px;
+  
+  .spinnerBorder {
+    border-width: 1px;
+    border-top-width: 1px;
+  }
+}
+
+.sm {
+  width: 16px;
+  height: 16px;
+  
+  .spinnerBorder {
+    border-width: 2px;
+    border-top-width: 2px;
+  }
+}
+
+.md {
+  width: 24px;
+  height: 24px;
+  
+  .spinnerBorder {
+    border-width: 2px;
+    border-top-width: 2px;
+  }
+}
+
+.lg {
+  width: 32px;
+  height: 32px;
+  
+  .spinnerBorder {
+    border-width: 3px;
+    border-top-width: 3px;
+  }
+}
+
+.xl {
+  width: 48px;
+  height: 48px;
+  
+  .spinnerBorder {
+    border-width: 4px;
+    border-top-width: 4px;
+  }
+}
+
+// 색상 변형
+.primary {
+  color: color(primary);
+}
+
+.gray {
+  color: color(gray-400);
+}
+
+.white {
+  color: color(white);
+}
+
+.current {
+  color: currentColor;
+}
+
+.spinnerText {
+  font-size: map-get($font-sizes, sm);
+  color: color(gray-600);
+  font-weight: map-get($font-weights, medium);
+}
+
+.buttonSpinner {
+  display: inline-flex;
+}
+
+// 스핀 애니메이션
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// 다크모드 지원
+[data-theme="dark"] & {
+  .fullScreen {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+  
+  .spinnerText {
+    color: color(gray-300);
+  }
+}
+
+// 접근성을 위한 스크린 리더 전용 텍스트
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// 애니메이션 감소 설정을 고려한 스타일
+@media (prefers-reduced-motion: reduce) {
+  .spinnerBorder {
+    animation: none;
+  }
+  
+  // 애니메이션 대신 점멸 효과 사용
+  .spinner {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+}
