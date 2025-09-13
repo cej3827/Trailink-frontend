@@ -34,6 +34,7 @@ export default async function PublicCategoryPage({ params }: PageProps) {
         // <PublicCategoryClient 
         // initialBookmarks={bookmarks}
         // />
+        <></>
     )
 }
 
