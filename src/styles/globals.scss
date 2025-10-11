@@ -1,173 +1,70 @@
-// // 여러 컴포넌트 스타일을 @use 구문을 통해 가져오기
-// @use 'components/sidebar';
-// @use 'components/bookmarkForm';
-// @use 'components/bookmarkList';
-// @use 'components/userProfile';
-// @use 'components/loginForm';
-// @use 'components/followingActivityList';
-// @use 'components/categoryPage';
-// @use 'components/categoryFolders';
-// @use 'components/header';
-// @use 'components/userSearch';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-// // @import 'tailwindcss/base';
-// // @import 'tailwindcss/components';
-// // @import 'tailwindcss/utilities';
-// //전역 CSS 변수
-// :root {
-//   --primary-color: #333b49;
-//   --secondary-color: #6898b8;
-//   --hover-color: #bacbd76b;
-//   --background-color: #f5f7fa;
-//   --text-color: #484747;
-//   --border-color: #e1e4e8;
-// }
+@import 'variables';
+@import 'mixins';
 
-// // 모든 요소에 대해
+
 // * {
 //   box-sizing: border-box;
 //   margin: 0;
 //   padding: 0;
 // }
 
-// html, body {
-//   overflow: auto;
+// html {
+//   font-size: 16px;
+//   -webkit-text-size-adjust: 100%;
 // }
 
 // body {
-//   font-family: 'Arial', sans-serif;
-//   background-color: var(--background-color);
-//   color: var(--text-color);
-//   line-height: 1.6;
+//   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+//   font-size: map-get($font-sizes, base);
+//   line-height: 1.5;
+//   color: color(gray-900);
+//   background-color: color(gray-50);
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
 // }
 
-// .app-container {
-//   display: flex;
-//   margin-top: 70px;
+// // 기본 요소 리셋
+// a {
+//   color: inherit;
+//   text-decoration: none;
 // }
 
-// main {
-//   flex-grow: 1;
-//   padding: 2rem;
-//   margin-left: 28%;
-//   @media (max-width: 800px) {
-//     margin-left: 0;
-//   }
-//   // border: 1px solid var(--primary-color);
+// button {
+//   font: inherit;
 // }
 
-// .home-page {
-//   // border: 1px solid var(--primary-color);
-//   h1 {
-//     margin-bottom: 1rem;
-//   }
+// input, textarea, select {
+//   font: inherit;
+// }
 
-//   div {
-//     max-width: 90%;
-//     margin-bottom: 2rem;
-//   }
+// // 스크롤바 전역 적용
+// * {
+//   @include custom-scrollbar;
+// }
 
-//   .form-container {
-//     background-color: white;
-//     border: 1px solid var(--primary-color);
-//     border-top: none;
-//     border-top: 0.01px solid rgba(0, 0, 0, 0.1);
-//     max-width: 90%;
-//     margin: 0 auto;
-//     border-radius: 0 0 10px 10px;
-//   }
+// // 유틸리티 클래스들
+// .sr-only {
+//   position: absolute;
+//   width: 1px;
+//   height: 1px;
+//   padding: 0;
+//   margin: -1px;
+//   overflow: hidden;
+//   clip: rect(0, 0, 0, 0);
+//   white-space: nowrap;
+//   border: 0;
+// }
+
+// .container {
+//   max-width: map-get($breakpoints, wide);
+//   margin: 0 auto;
+//   padding: 0 space(lg);
   
-//   .tab-bar {
-//     display: flex;
-//     margin: 0 auto;
-
-//     button {
-//       border-radius: 10px 10px 0 0;
-//       border: none;
-//       border-bottom: 1px solid var(--primary-color);
-//       flex: 1;
-//       padding: 0.7rem;
-//       background-color: rgba(237, 234, 234, 0.277);
-//       cursor: pointer;
-//       font-weight: bold;
-//       transition: background-color 0.3s ease;
-//       margin: 0 auto;
-  
-//       &:hover {
-//         background-color: var(--hover-color);
-//       }
-
-//       &.active {
-//         border: 1px solid var(--primary-color);
-//         border-bottom: none;
-//         background-color: white;
-//       }
-//     }
+//   @include respond-to(mobile) {
+//     padding: 0 space(md);
 //   }
 // }
-// src/styles/globals.scss
-@import 'variables';
-@import 'mixins';
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: map-get($font-sizes, base);
-  line-height: 1.5;
-  color: color(gray-900);
-  background-color: color(gray-50);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-// 기본 요소 리셋
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font: inherit;
-}
-
-input, textarea, select {
-  font: inherit;
-}
-
-// 스크롤바 전역 적용
-* {
-  @include custom-scrollbar;
-}
-
-// 유틸리티 클래스들
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.container {
-  max-width: map-get($breakpoints, wide);
-  margin: 0 auto;
-  padding: 0 space(lg);
-  
-  @include respond-to(mobile) {
-    padding: 0 space(md);
-  }
-}

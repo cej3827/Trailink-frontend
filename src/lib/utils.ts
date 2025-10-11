@@ -10,17 +10,17 @@ export function cn(...inputs: ClassValue[]) {
   return clsx(inputs)
 }
 
-// /**
-//  * URL이 유효한지 검증하는 함수
-//  */
-// export function isValidUrl(string: string): boolean {
-//   try {
-//     new URL(string)
-//     return true
-//   } catch {
-//     return false
-//   }
-// }
+/**
+ * URL이 유효한지 검증하는 함수
+ */
+export function isValidUrl(string: string): boolean {
+  try {
+    new URL(string)
+    return true
+  } catch {
+    return false
+  }
+}
 
 // /**
 //  * 텍스트를 지정된 길이로 자르고 '...' 추가

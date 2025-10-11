@@ -1,0 +1,62 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: space(lg);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(xs);
+}
+
+.label {
+  font-size: map-get($font-sizes, sm);
+  font-weight: map-get($font-weights, medium);
+  color: color(gray-700);
+}
+
+.input, .textarea {
+  @include input-base;
+}
+
+.textarea {
+  resize: none;
+  min-height: 7rem;
+}
+
+// .checkboxLabel {
+//   display: flex;
+//   align-items: flex-start;
+//   gap: space(sm);
+//   cursor: pointer;
+//   font-size: map-get($font-sizes, sm);
+// }
+
+// .checkbox {
+//   margin-top: 2px;
+//   width: 16px;
+//   height: 16px;
+//   accent-color: color(primary);
+// }
+
+// .checkboxText {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 2px;
+// }
+
+// .helpText {
+//   font-size: map-get($font-sizes, xs);
+//   color: color(gray-500);
+//   font-weight: normal;
+// }
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

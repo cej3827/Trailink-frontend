@@ -1,0 +1,46 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: color(gray-50);
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: color(white);
+  position: relative;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem;
+
+  // 사이드바가 닫혀있을 때만 좌우 패딩 추가
+  .sidebarClosed & {
+    padding: 1rem 3rem;
+  }
+}
+
+// 접근성을 위한 포커스 스타일
+.content:focus-within {
+  outline: 2px solid color(primary);
+  outline-offset: -2px;
+}
+
+// 애니메이션 감소 설정을 고려한 스타일
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    transition: none;
+  }
+}

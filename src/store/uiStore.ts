@@ -46,8 +46,8 @@ export const useUIStore = create<UIState>((set) => ({
   // 사이드바 관리
   toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
   setSidebarOpen: (open) => set({ sidebarOpen: open }),
-  openSidebar: () => set({ sidebarOpen: true }),     // 추가
-  closeSidebar: () => set({ sidebarOpen: false }),   // 추가
+  openSidebar: () => set({ sidebarOpen: true }),    
+  closeSidebar: () => set({ sidebarOpen: false }),  
 
   // 북마크 폼 모달 관리
   openBookmarkForm: () => set({ bookmarkFormOpen: true }),

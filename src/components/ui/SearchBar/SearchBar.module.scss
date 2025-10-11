@@ -1,0 +1,67 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.searchForm {
+  width: 100%;
+}
+
+.searchContainer {
+  height: 2.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid color(gray-700);
+  // transition: all map-get($transitions, base);
+  
+  &:focus-within {
+    border-color: color(primary);
+    box-shadow: 0 0 0 3px rgba(color(gray-700), 0.1);
+    outline: none;
+  }
+  
+  &:hover:not(.disabled) {
+    border-color: color(gray-400);
+  }
+  
+  &.disabled {
+    background-color: color(gray-50);
+    border-color: color(gray-200);
+    cursor: not-allowed;
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  color: color(gray-600);
+  z-index: 1;
+  flex-shrink: 0; // 아이콘 크기 고정
+  
+  .disabled & {
+    color: color(gray-300);
+  }
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0 2.5rem 0 2.75rem;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-size: map-get($font-sizes, sm);
+  color: color(gray-900);
+  outline: none;
+  
+  &::placeholder {
+    color: color(gray-500);
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    color: color(gray-400);
+    
+    &::placeholder {
+      color: color(gray-300);
+    }
+  }
+}

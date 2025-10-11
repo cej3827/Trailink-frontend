@@ -1,0 +1,127 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.sidebar {
+  width: 18rem;
+  background: color(white);
+  border-right: 1px solid color(gray-200);
+  padding: space(lg);
+  overflow-y: auto;
+  flex-shrink: 0;
+  @include custom-scrollbar;
+  
+  &.hidden {
+    display: none;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: space(lg);
+  padding-left: space(sm);
+}
+
+.title {
+  font-size: map-get($font-sizes, lg);
+  font-weight: map-get($font-weights, semibold);
+  color: color(gray-900);
+  margin: 0;
+}
+
+.addButton {
+  gap: space(xs);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: space(xs);
+}
+
+.categoryItem {
+  display: flex;
+  padding: space(sm) space(md);
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  color: color(gray-600);
+  
+  &:hover {
+    color: color(gray-800);
+    background-color: color(gray-200);
+  }
+  
+  &.active {
+    background-color: rgba(color(gray-700), 0.1);
+    color: color(primary);
+    font-weight: map-get($font-weights, medium);
+  }
+}
+
+.categoryName {
+  display: flex;
+  align-items: center;
+  @include truncate;
+}
+
+.bookmarkCount {
+  font-size: map-get($font-sizes, xs);
+  color: color(gray-500);
+  padding: 2px 6px;
+  background-color: color(gray-100);
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.loading {
+  padding: space(md);
+  text-align: center;
+  color: color(gray-500);
+  font-size: map-get($font-sizes, sm);
+}
+
+.emptyState {
+  padding: space(xs) space(xs);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: space(md);
+}
+
+.emptySubtext {
+  font-size: map-get($font-sizes, sm);
+  color: color(gray-500);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.newCategoryButton {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: space(xs);
+  padding: space(md) space(md);
+  margin-top: space(md);
+  border-top: 1px solid #e5e5e5;
+  background: none;
+  cursor: pointer;
+  transition: map-get($transitions, fast);
+  width: 100%;
+  text-align: left;
+  font-size: map-get($font-sizes, sm);
+  color: color(gray-600);
+  
+  &:hover {
+    background-color: color(gray-200);
+    color: color(gray-800);
+  }
+  
+  &:active {
+    background-color: color(gray-200);
+  }
+}

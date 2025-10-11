@@ -1,19 +1,19 @@
 export interface User {
-  id: string
+  user_id: string
 //   email: string
-  name: string
-  avatar?: string
+  user_name: string
+  user_profile_img?: string
 //   createdAt: string
 //   updatedAt: string
 }
 
 export interface Category {
-  id: string
-  name: string
-  description?: string
+  category_id: string
+  category_name: string
+  category_description?: string
 //   color?: string
 //   isPublic: boolean
-  userId: string
+  user_id: string
   // bookmarkCount?: number
   createdAt: string
   updatedAt: string
@@ -68,24 +68,3 @@ export interface LoginCredentials {
 //   email: string
 //   password: string
 // }
-
-// API 응답 타입들
-export interface AuthResponse {
-  user: User
-  token: string
-}
-
-export interface ApiError {
-  message: string
-  code?: string
-  field?: string
-}
-
-export interface PaginatedResponse<T> {
-  data: T[]
-  total: number
-  page: number
-  limit: number
-  hasNext: boolean
-  hasPrev: boolean
-}

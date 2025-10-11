@@ -1,0 +1,114 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: space(lg) space(md);
+  background: color(white);
+  border-bottom: 1px solid color(gray-200);
+  height: 5rem;
+  gap: space(md); 
+}
+
+// 왼쪽 섹션: 사이드바 토글 + 로고
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.centerSection {
+  flex: 1;
+  max-width: 40rem;
+  margin: 0 space(lg);
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: space(md);
+  flex-shrink: 0;
+}
+
+.addButton {
+  gap: space(xs);
+}
+
+// 사용자 메뉴
+.userMenu {
+  position: relative;
+}
+
+.userButton {
+  gap: space(xs);
+  padding: space(xs) space(sm);
+}
+
+.userAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: color(gray-700);
+  color: color(white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: map-get($font-sizes, medium);
+  font-weight: map-get($font-weights, medium);
+}
+
+.userDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: space(xs);
+  width: 12rem;
+  background: color(white);
+  border: 1px solid color(gray-200);
+  box-shadow: map-get($shadows, lg);
+  padding: space(sm);
+  z-index: map-get($z-indexes, dropdown);
+}
+
+.userInfo {
+  padding: space(sm);
+}
+
+.userId {
+  font-size: map-get($font-sizes, sm);
+  color: color(gray-600);
+  @include truncate;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid color(gray-200);
+  margin: space(xs) 0;
+}
+
+.menuItem {
+  width: 100%;
+  padding: space(sm);
+  border: none;
+  background: none;
+  text-align: left;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: map-get($font-sizes, md);
+  transition: map-get($transitions, fast);
+  
+  &:hover {
+    background-color: color(gray-100);
+  }
+  
+  &.logout {
+    color: color(danger);
+    
+    &:hover {
+      background-color: rgba(color(danger), 0.1);
+    }
+  }
+}
