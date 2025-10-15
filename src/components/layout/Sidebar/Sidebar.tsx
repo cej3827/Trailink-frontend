@@ -4,6 +4,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCategories } from '@/hooks/useCategories'
+import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import { useUIStore } from '@/store/uiStore'
 import Button from '@/components/ui/Button/Button'
 import LoadingSpinner from '@/components/ui/LoadingSpinner/LoadingSpinner'
@@ -11,12 +12,23 @@ import {
   Plus, 
   Folder, 
   ChevronLeft,
+  X,
+  Settings,
+  LogOut
 } from 'lucide-react'
 import styles from './Sidebar.module.scss'
 
-export default function Sidebar() {
+
+interface SidebarProps {
+  isMobile: boolean
+}
+
+
+export default function Sidebar({ isMobile }: SidebarProps) {
   const pathname = usePathname()
   const { data: categories, isLoading } = useCategories()
+  const { data: user } = useCurrentUser()
+  const logout = useLogout()
   const { closeSidebar, openCategoryForm } = useUIStore()
 
   const isActive = (path: string) => pathname === path
@@ -29,28 +41,71 @@ export default function Sidebar() {
     closeSidebar()
   }
 
+  const handleLogout = () => {
+    logout.mutate()
+    closeSidebar()
+  }
+
   // const handleCategoryClick = () => {
   //   // 모바일에서는 카테고리 클릭 시 사이드바 닫기
-  //   if (window.innerWidth <= 768) {
+  //   if (isMobile) {
   //     closeSidebar()
   //   }
   // }
 
   return (
     <>
-      <aside className={styles.sidebar}>
+      <aside className={`${styles.sidebar} ${isMobile ? styles.mobile : styles.desktop}`}>
+        {/* 모바일에서만 프로필 섹션 표시 */}
+        {isMobile && (
+          <div className={styles.mobileProfile}>
+            <div className={styles.profileHeader}>
+              <div className={styles.avatar}>
+                {user?.user_name.charAt(0).toUpperCase() || 'U'}
+              </div>
+              <div className={styles.userInfo}>
+                <div className={styles.userName}>{user?.user_name}</div>
+                <div className={styles.userId}>{user?.user_id}</div>
+              </div>
+              <button
+                onClick={handleCloseSidebar}
+                className={styles.closeButtonMobile}
+                aria-label="사이드바 닫기"
+              >
+                <X size={23} />
+              </button>
+            </div>
+            <div className={styles.profileActions}>
+              <button className={styles.actionButton}>
+                <Settings size={18} />
+                <span>설정</span>
+              </button>
+              <button 
+                className={`${styles.actionButton} ${styles.logout}`}
+                onClick={handleLogout}
+                disabled={logout.isPending}
+              >
+                <LogOut size={18} />
+                <span>{logout.isPending ? '로그아웃 중...' : '로그아웃'}</span>
+              </button>
+            </div>
+          </div>
+        )}
+        
         <div className={styles.header}>
           <h2 className={`${styles.title} flex items-center gap-5`}>
             <Folder size={23} />
             Categories
           </h2>
-          <button
-            onClick={handleCloseSidebar}
-            className={styles.closeButton}
-            aria-label="사이드바 닫기"
-          >
-            <ChevronLeft size={23} />
-          </button>
+          {!isMobile && (
+            <button
+              onClick={handleCloseSidebar}
+              className={styles.closeButton}
+              aria-label="사이드바 닫기"
+            >
+              <ChevronLeft size={23} />
+            </button>
+          )}
         </div>
 
         <nav className={styles.nav}>

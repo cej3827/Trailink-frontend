@@ -9,7 +9,7 @@
   background: color(white);
   border-bottom: 1px solid color(gray-200);
   height: 5rem;
-  gap: space(md); 
+  gap: space(sm);
 }
 
 // 왼쪽 섹션: 사이드바 토글 + 로고
@@ -20,10 +20,45 @@
   flex-shrink: 0;
 }
 
+// 로고 반응형
+.logoText {
+  font-size: 1.5rem;
+
+  @media (min-width: 420px) {
+    font-size: 1.875rem;
+  }
+}
+
+.logoIcon {
+  @media (max-width: 420px) {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    
+    span {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+// 중앙 검색바(데스크탑만)
 .centerSection {
   flex: 1;
   max-width: 40rem;
   margin: 0 space(lg);
+  display: none;
+
+  @media (min-width: 420px) {
+    display: block;
+  }
+}
+
+// 모바일 검색 버튼
+.searchButton {
+  display: flex;
+  
+  @media (min-width: 420px) {
+    display: none;
+  }
 }
 
 .rightSection {
@@ -31,10 +66,6 @@
   align-items: center;
   gap: space(md);
   flex-shrink: 0;
-}
-
-.addButton {
-  gap: space(xs);
 }
 
 // 사용자 메뉴
@@ -111,4 +142,23 @@
       background-color: rgba(color(danger), 0.1);
     }
   }
+}
+
+// 모바일 검색 오버레이
+.searchOverlay {
+  position: fixed;
+  inset: 0;
+  background: color(white);
+  z-index: 200;
+  // display: flex;
+  // flex-direction: column;
+}
+
+.searchHeader {
+  display: flex;
+  justify-content: space-around;
+  // align-items: center;
+  // gap: space(sm);
+  padding: space(md);
+  border-bottom: 1px solid color(gray-200);
 }

@@ -26,7 +26,7 @@ export default function LoginForm() {
 
   return (
     <div className="h-full flex items-center justify-center">
-      <div className="w-full max-w-md mx-auto bg-white border-2 border-black p-8 relative">
+      <div className="w-full max-w-md mx-auto bg-white border-0 sm:border-2 sm:border-black p-8 relative">
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"

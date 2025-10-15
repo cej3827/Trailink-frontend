@@ -13,6 +13,27 @@
   &.hidden {
     display: none;
   }
+
+  // 모바일 전체화면 스타일
+  &.mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 50;
+    border-right: none;
+    animation: slideIn 0.3s ease;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .header {
@@ -29,6 +50,106 @@
   color: color(gray-900);
   margin: 0;
 }
+
+.closeButton {
+  cursor: pointer;
+  padding: space(xs);
+  transition: map-get($transitions, fast);
+}
+
+// 모바일 프로필 섹션
+.mobileProfile {
+  padding: space(md);
+  margin-bottom: space(lg);
+  border-bottom: 1px solid color(gray-200);
+  position: relative;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: space(lg);
+  margin-bottom: space(md);
+}
+
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: color(gray-700);
+  color: color(white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: map-get($font-sizes, lg);
+  font-weight: map-get($font-weights, semibold);
+  flex-shrink: 0;
+}
+
+.userId {
+  font-size: map-get($font-sizes, sm);
+  color: color(gray-600);
+  @include truncate;
+}
+
+// 모바일 X 버튼 (우측 상단 고정)
+.closeButtonMobile {
+  position: absolute;
+  top: space(md);
+  right: space(sm);
+  cursor: pointer;
+  padding: space(xs);
+  transition: map-get($transitions, fast);
+  
+  &:hover {
+    color: color(gray-900);
+    background-color: color(gray-100);
+    border-radius: 0.25rem;
+  }
+  
+  &:active {
+    background-color: color(gray-200);
+  }
+}
+
+.profileActions {
+  display: flex;
+  flex-direction: column;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: space(sm);
+  width: 100%;
+  padding: space(sm) space(md);
+  border: none;
+  background: none;
+  text-align: left;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: map-get($font-sizes, sm);
+  color: color(gray-700);
+  transition: map-get($transitions, fast);
+  
+  &:hover {
+    background-color: color(gray-100);
+  }
+  
+  &.logout {
+    color: color(danger);
+    
+    &:hover {
+      background-color: rgba(color(danger), 0.1);
+    }
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
 
 .addButton {
   gap: space(xs);
