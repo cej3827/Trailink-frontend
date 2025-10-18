@@ -43,8 +43,9 @@ export default function RecentBookmarks() {
       <div className="flex items-center mt-3 mb-6 gap-3">
         <h2 className="text-xl font-medium text-gray-800">Recent Bookmarks</h2>
         <button 
-            className="flex items-center text-gray-700 rounded-full hover:text-gray-800 hover:scale-105 transition-all duration-200"
-            onClick={handleAddBookmark}
+          className="flex items-center text-gray-700 rounded-full hover:text-gray-800 hover:scale-105 transition-all duration-200"
+          onClick={handleAddBookmark}
+          onMouseDown={(e) => e.preventDefault()} // 포커스 자체를 차단
         >
             <CirclePlus size={30} />
         </button>

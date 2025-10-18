@@ -5,7 +5,9 @@
 @import 'variables';
 @import 'mixins';
 
-
+button:focus:not(:focus-visible) {
+  outline: none;
+}
 // * {
 //   box-sizing: border-box;
 //   margin: 0;
