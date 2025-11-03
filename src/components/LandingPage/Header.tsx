@@ -8,16 +8,16 @@ export default function Header() {
               <div className="w-8 h-8 flex items-center justify-center group-hover:rotate-180 transition-transform duration-500">
                 <span className="text-white font-bold text-2xl">🔗</span>
               </div>
-              <h1 className="text-3xl font-semibold text-slate-800 group-hover:tracking-wider transition-all duration-300">
+              <h1 className="text-3xl font-semibold text-accent">
                 Trailink
               </h1>
             </div>
           </div>
           <nav className="flex space-x-4">
-            <a href="#" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <a href="#" className="text-primary hover:text-accent transition-colors">
               소개
             </a>
-            <a href="#" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <a href="#" className="text-primary hover:text-accent transition-colors">
               문의
             </a>
           </nav>

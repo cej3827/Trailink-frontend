@@ -16,20 +16,11 @@ export function useCategories() {
     },
     staleTime: 30 * 60 * 1000, // 30분 동안 fresh 상태 유지
     gcTime: 24 * 60 * 60 * 1000, // 24시간 동안 캐시 유지
+    retry: false, // 에러 시 재시도하지 않음
+    throwOnError: false, // 에러를 던지지 않음
   })
 }
 
-// /**
-//  * 특정 카테고리 정보를 가져오는 훅
-//  */
-// export function useCategory(categoryId: string) {
-//   return useQuery({
-//     queryKey: QUERY_KEYS.CATEGORY(categoryId),
-//     queryFn: () => categoryAPI.getCategoryById(categoryId),
-//     enabled: !!categoryId, // categoryId가 있을 때만 실행
-//     staleTime: 5 * 60 * 1000,
-//   })
-// }
 
 // 카테고리 생성 뮤테이션
 export function useCreateCategory() {
@@ -148,7 +139,7 @@ export function useUpdateCategory() {
 // }
 
 // /**
-//  * 공개 카테고리 정보를 가져오는 훅 (slug 기반)
+//  * 공개 카테고리 정보를 가져오는 훅
 //  */
 // export function usePublicCategory(slug: string) {
 //   return useQuery({

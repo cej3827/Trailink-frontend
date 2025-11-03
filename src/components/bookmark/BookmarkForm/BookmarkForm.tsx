@@ -7,16 +7,17 @@ import { useCategories } from '@/hooks/useCategories'
 import { useUIStore } from '@/store/uiStore'
 import Modal from '@/components/ui/Modal/Modal'
 import Button from '@/components/ui/Button/Button'
-import { Bookmark, CreateBookmarkData } from '@/types'
+import { CreateBookmarkData } from '@/types'
 import { isValidUrl } from '@/lib/utils'
 import styles from './BookmarkForm.module.scss'
 
-interface BookmarkFormProps {
-  bookmark?: Bookmark // 수정 시 전달
-}
-
-export default function BookmarkForm({ bookmark }: BookmarkFormProps) {
-  const { bookmarkFormOpen, closeBookmarkForm } = useUIStore()
+export default function BookmarkForm() {
+  const { 
+    bookmarkFormOpen, 
+    closeBookmarkForm, 
+    editingBookmark, 
+    selectedCategoryId 
+  } = useUIStore()
   const { data: categories } = useCategories()
   
   const [formData, setFormData] = useState({
@@ -29,25 +30,37 @@ export default function BookmarkForm({ bookmark }: BookmarkFormProps) {
   const createMutation = useCreateBookmark()
   const updateMutation = useUpdateBookmark()
   
-  const isEditing = Boolean(bookmark)
+  const isEditing = Boolean(editingBookmark)
   const isLoading = createMutation.isPending
 
-  // 수정 시 초기 데이터 설정
+  // 초기 데이터 설정
   useEffect(() => {
-    if (bookmark) {
+    if (editingBookmark) {
+      // 수정 모드
       setFormData({
-        bookmark_title: bookmark.title,
-        bookmark_url: bookmark.url,
-        bookmark_description: bookmark.description || '',
-        category_id: bookmark.categoryId
+        bookmark_title: editingBookmark.bookmark_title || '',
+        bookmark_url: editingBookmark.bookmark_url || '',
+        bookmark_description: editingBookmark.bookmark_description || '',
+        category_id: editingBookmark.category_id || ''
       })
-    } else {
-      // 새로 만들 때 기본 카테고리 선택
-      if (categories && categories.length > 0) {
-        setFormData(prev => ({ ...prev, categoryId: categories[0].id }))
-      }
+    } else if (selectedCategoryId) {
+      // 새로 만들기 - 카테고리 지정됨
+      setFormData({
+        bookmark_title: '',
+        bookmark_url: '',
+        bookmark_description: '',
+        category_id: selectedCategoryId
+      })
+    } else if (categories && categories.length > 0) {
+      // 새로 만들기 - 기본 카테고리
+      setFormData({
+        bookmark_title: '',
+        bookmark_url: '',
+        bookmark_description: '',
+        category_id: categories[0].category_id.toString()
+      })
     }
-  }, [bookmark, categories])
+  }, [editingBookmark, selectedCategoryId, categories])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -63,9 +76,9 @@ export default function BookmarkForm({ bookmark }: BookmarkFormProps) {
     }
 
     try {
-      if (isEditing && bookmark) {
+      if (isEditing && editingBookmark) {
         await updateMutation.mutateAsync({
-          id: bookmark.id,
+          id: editingBookmark.bookmark_id,
           data: formData
         })
       } else {

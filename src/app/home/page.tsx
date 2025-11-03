@@ -1,18 +1,14 @@
-// 로그인된 사용자 홈
-
-import HomeClient from "@/components/Home/Home";
-import { checkAuth } from "@/lib/cookies";
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation'
+import { checkAuth } from '@/lib/cookies'
+import HomePageClient from './HomePageClient'
 
 export default async function HomePage() {
-  const isAuthenticated = await checkAuth()
-  
-  // 인증된 사용자인지 확인
-  if (isAuthenticated) {
-    return <HomeClient />;
-  }
+  const hasToken = await checkAuth()
 
-  if (!isAuthenticated) {
+  // 로그인되지 않은 사용자는 랜딩 페이지로 리다이렉트
+  if (!hasToken) {
     redirect('/')
   }
+
+  return <HomePageClient />
 }

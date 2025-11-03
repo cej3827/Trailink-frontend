@@ -1,68 +1,63 @@
-// // 공개 카테고리 페이지
+'use client'
 
-// import { API_BASE_URL } from "@/api";
-// import { notFound } from "next/navigation";
-// // import PublicCategoryClient from '@/components/PublicCategoryClient/PublicCategoryClient'
+import { useParams } from 'next/navigation'
+import { useBookmarksByCategory } from '@/hooks/useBookmarks'
+import AuthenticatedLayout from '@/components/layout/AuthenticatedLayout/AuthenticatedLayout'
+import PublicHeader from '@/components/layout/Header/PublicHeader'
+import CategoryBookmarksView from '@/components/category/CategoryBookmarksView/CategoryBookmarksView'
+import LoadingSpinner from '@/components/ui/LoadingSpinner/LoadingSpinner'
+import { useCurrentUser } from '@/hooks/useAuth'
 
-// async function getCategoryBookmarks(categoryId: number) {
-//     try { 
-//         const response = await fetch(`${API_BASE_URL}/bookmarks/category/${categoryId}`, {
-//             cache: 'no-store'
-//         })
+export default function CategoryBookmarksPage() {
+  const params = useParams()
+  const categoryId = params.categoryId as string
 
-//         if (!response.ok) return []
-//         return response.json()
-//     } catch {
-//         return []
-//     }
-// }
+  // useCurrentUser 사용 (카테고리 페이지에서는 에러 처리 안 함)
+  const { data: user } = useCurrentUser()
 
-// interface PageProps {
-//   params: Promise<{
-//     categoryId: string; // 주의: URL 파라미터는 항상 string입니다
-//   }>;
-// }
+  const { data: CategoryBookmarksData, isLoading: CategoryBookmarksLoading} = useBookmarksByCategory(
+    categoryId,
+    { page: 1, limit: 12, sortBy: 'latest' }
+  )
 
-// export default async function PublicCategoryPage({ params }: PageProps) {
-//     // const category = await getCategoryBookmarks(params.categoryId)
-
-//     // if (!category) {
-//     //     notFound()
-//     // }
-
-//     return (
-//         // <PublicCategoryClient 
-//         // initialBookmarks={bookmarks}
-//         // />
-//         <></>
-//     )
-// }
-
-// // 메타데이터 생성
-// export async function generateMetadata({ params }: PageProps) {
-// //   const category = await getCategoryBookmarks(params.categoryId)
+  // 북마크 데이터에서 카테고리 정보 추출
+  const currentCategory = (CategoryBookmarksData)?.category
   
-// //   if (!category) {
-// //     return {
-// //       title: '카테고리를 찾을 수 없습니다'
-// //     }
-// //   }
-  
-//   return {
-//     // title: `${category.name} - 북마크 모음`,
-//     // description: category.description || `${category.name} 카테고리의 북마크 모음입니다.`,
-    
-//   }
-// }
+  // 소유자 여부 확인
+  const isOwner = user && currentCategory && currentCategory.user_id === user.user_id
 
-export default function BookmarkDetailPage() {
+  // 로딩 중
+  if (CategoryBookmarksLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+        <LoadingSpinner />
+      </div>
+    )
+  }
+
+  // 소유자인 경우 AuthenticatedLayout으로 감싸기
+  if (isOwner) {
+    return (
+      <AuthenticatedLayout>
+        <CategoryBookmarksView 
+          categoryId={categoryId} 
+          isOwner={true}
+        />
+      </AuthenticatedLayout>
+    )
+  }
+
+  // 방문자인 경우 공개 페이지
   return (
-    <div style={{ 
-      padding: '2rem', 
-      textAlign: 'center', 
-      color: '#666' 
-    }}>
-      🚧 This page is under construction 🚧
+    <div className="min-h-screen">
+      <PublicHeader />
+      <div className="max-w-7xl mx-auto">
+        <CategoryBookmarksView 
+          categoryId={categoryId} 
+          isOwner={false}
+        />
+      </div>
     </div>
-  );
+  )
 }
+
