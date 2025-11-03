@@ -1,40 +1,60 @@
-// // 북마크 리스트, react-query 사용
+'use client'
 
-// import BookmarkCard from '@/components/bookmark/BookmarkCard/BookmarkCard'
-// import { Bookmark } from '@/types'
-// import styles from './BookmarkGrid.module.scss'
+import { Bookmark } from '@/types'
+import BookmarkCard from '../BookmarkCard/BookmarkCard'
 
-// interface BookmarkGridProps {
-//   bookmarks: Bookmark[]
-//   viewMode?: 'grid' | 'list'
-//   readonly?: boolean // 읽기 전용 모드
-// }
+type ViewMode = 'card' | 'list'
 
-// export default function BookmarkGrid({ 
-//   bookmarks, 
-//   viewMode = 'grid',
-//   readonly = false 
-// }: BookmarkGridProps) {
-//   if (bookmarks.length === 0) {
-//     return (
-//       <div className={styles.empty}>
-//         <p>북마크가 없습니다.</p>
-//         {!readonly && (
-//           <p>첫 번째 북마크를 추가해보세요!</p>
-//         )}
-//       </div>
-//     )
-//   }
+interface BookmarkGridViewProps {
+  bookmarks: Bookmark[]
+  viewMode?: ViewMode
+  isOwner?: boolean
+  onBookmarkClick?: (url: string) => void
+  onBookmarkEdit?: (bookmark: Bookmark) => void
+  onBookmarkDelete?: (bookmarkId: string | number) => void
+  emptyMessage?: string
+  emptyActionButton?: React.ReactNode
+}
 
-//   return (
-//     <div className={`${styles.grid} ${styles[viewMode]}`}>
-//       {bookmarks.map((bookmark) => (
-//         <BookmarkCard 
-//           key={bookmark.id} 
-//           bookmark={bookmark}
-//           readonly={readonly} // 읽기 전용 모드 전달
-//         />
-//       ))}
-//     </div>
-//   )
-// }
+export default function BookmarkGridView({
+  bookmarks,
+  viewMode = 'card',
+  isOwner = false,
+  onBookmarkClick,
+  onBookmarkEdit,
+  onBookmarkDelete,
+  emptyMessage = '북마크가 없습니다.',
+  emptyActionButton
+}: BookmarkGridViewProps) {
+  // 빈 상태
+  if (bookmarks.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-neutral-400 text-6xl mb-4">📚</div>
+        <h3 className="text-xl font-semibold text-primary mb-2">{emptyMessage}</h3>
+        {emptyActionButton}
+      </div>
+    )
+  }
+
+  return (
+    <div className={`${
+      viewMode === 'card' 
+        ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6' 
+        : 'space-y-4'
+    }`}>
+      {bookmarks.map((bookmark) => (
+        <BookmarkCard
+          key={bookmark.bookmark_id}
+          bookmark={bookmark}
+          viewMode={viewMode}
+          isOwner={isOwner}
+          onClick={onBookmarkClick}
+          onEdit={onBookmarkEdit}
+          onDelete={onBookmarkDelete}
+        />
+      ))}
+    </div>
+  )
+}
+

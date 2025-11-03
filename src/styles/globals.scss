@@ -1,12 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "variables";
+@import "mixins";
 
-@import 'variables';
-@import 'mixins';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-button:focus:not(:focus-visible) {
-  outline: none;
+
+// 포커스 아웃라인 제거 
+button:focus,
+select:focus,
+input:focus,
+textarea:focus {
+  outline: none !important;
+}
+
+// select 요소에 대한 추가 규칙
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 // * {
 //   box-sizing: border-box;

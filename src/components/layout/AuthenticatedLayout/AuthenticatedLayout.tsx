@@ -1,13 +1,13 @@
 // 로그인 유저용 레이아웃 (클라이언트)
 'use client'
 
+import { useEffect, useState } from 'react'
 import Header from '../Header/Header'
 import Sidebar from '../Sidebar/Sidebar'
 import { useUIStore } from '@/store/uiStore'
 import styles from './AuthenticatedLayout.module.scss'
 import CategoryForm from '@/components/category/CategoryForm/CategoryForm'
 import BookmarkForm from '@/components/bookmark/BookmarkForm/BookmarkForm'
-import { useEffect, useState } from 'react'
 
 
 interface AuthenticatedLayoutProps {

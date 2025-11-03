@@ -5,16 +5,15 @@ import { useCreateCategory, useUpdateCategory } from '@/hooks/useCategories'
 import { useUIStore } from '@/store/uiStore'
 import Modal from '@/components/ui/Modal/Modal'
 import Button from '@/components/ui/Button/Button'
-import { Category, CreateCategoryData } from '@/types'
+import { CreateCategoryData } from '@/types'
 import styles from './CategoryForm.module.scss'
 
-interface CategoryFormProps {
-  category?: Category // 수정 시 전달
-}
-
-export default function CategoryForm({ category }: CategoryFormProps) {
-  const { categoryFormOpen, closeCategoryForm } = useUIStore()
-//   const { editingCategoryId, setEditingCategory } = useCategoryUIStore()
+export default function CategoryForm() {
+  const { 
+    categoryFormOpen, 
+    closeCategoryForm, 
+    editingCategory 
+  } = useUIStore()
   
   const [formData, setFormData] = useState({
     category_name: '',
@@ -24,18 +23,23 @@ export default function CategoryForm({ category }: CategoryFormProps) {
   const createMutation = useCreateCategory()
   const updateMutation = useUpdateCategory()
   
-  const isEditing = Boolean(category)
+  const isEditing = Boolean(editingCategory)
   const isLoading = createMutation.isPending || updateMutation.isPending
 
-  // 수정 시 초기 데이터 설정
+  // 초기 데이터 설정
   useEffect(() => {
-    if (category) {
+    if (editingCategory) {
       setFormData({
-        category_name: category.category_name,
-        category_description: category.category_name || '',
+        category_name: editingCategory.category_name || '',
+        category_description: editingCategory.category_description || '',
+      })
+    } else {
+      setFormData({
+        category_name: '',
+        category_description: '',
       })
     }
-  }, [category])
+  }, [editingCategory])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,12 +50,11 @@ export default function CategoryForm({ category }: CategoryFormProps) {
     }
 
     try {
-      if (isEditing && category) {
+      if (isEditing && editingCategory) {
         await updateMutation.mutateAsync({
-          categoryId: category.category_id,
+          categoryId: editingCategory.category_id,
           data: formData
         })
-        // setEditingCategory(null)
       } else {
         await createMutation.mutateAsync(formData as CreateCategoryData)
       }
@@ -68,7 +71,6 @@ export default function CategoryForm({ category }: CategoryFormProps) {
       category_description: '',
     })
     closeCategoryForm()
-    // setEditingCategory(null)
   }
 
   const handleInputChange = (field: string, value: string | boolean) => {

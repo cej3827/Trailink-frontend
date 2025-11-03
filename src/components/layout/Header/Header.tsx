@@ -7,6 +7,7 @@ import Button from '@/components/ui/Button/Button'
 import { useState, useEffect } from 'react'
 import styles from './Header.module.scss'
 import { useUIStore } from '@/store/uiStore'
+import { useRouter } from 'next/navigation'
 import { 
   Settings,
   Menu,
@@ -21,6 +22,7 @@ export default function Header() {
   const { data: user } = useCurrentUser()
   const logout = useLogout()
   const { toggleSidebar } = useUIStore()
+  const router = useRouter()
 
   // 화면 크기 감지
   useEffect(() => {
@@ -51,6 +53,10 @@ export default function Header() {
     toggleSidebar()
   }
 
+  const handleLogoClick = () => {
+    router.push('/home')
+  }
+
   return (
     <>
       <header className={styles.header}>
@@ -67,12 +73,12 @@ export default function Header() {
           </Button>
 
           {/* 로고 */}
-          <div className="group cursor-pointer">
+          <div className="group cursor-pointer" onClick={handleLogoClick}>
             <div className="flex items-center space-x-2">
               <div className={`${styles.logoIcon} w-8 h-8 flex items-center justify-center group-hover:rotate-180 transition-transform duration-500`}>
                 <span className="text-white font-bold text-2xl">🔗</span>
               </div>
-              <h1 className={`${styles.logoText} text-3xl font-semibold text-slate-800 group-hover:tracking-wider transition-all duration-300`}>
+              <h1 className={`${styles.logoText} text-3xl font-semibold text-accent`}>
                 Trailink
               </h1>
             </div>

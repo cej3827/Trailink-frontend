@@ -21,6 +21,23 @@ import { toast } from 'react-hot-toast'
 // }
 
 /**
+ * 카테고리별 북마크를 가져오는 훅 (페이지네이션 지원)
+ */
+export function useBookmarksByCategory(categoryId: string, params?: {
+  page?: number
+  limit?: number
+  sortBy?: 'latest' | 'oldest' | 'name'
+}) {
+  return useQuery({
+    queryKey: ['bookmarks', 'category', categoryId, params],
+    queryFn: () => bookmarkAPI.getBookmarksByCategory(categoryId, params),
+    enabled: !!categoryId,
+    staleTime: 2 * 60 * 1000, // 2분간 캐시
+    placeholderData: (prevData) => prevData, // 이전 데이터 유지
+  })
+}
+
+/**
  * 최근 북마크를 가져오는 훅 (홈페이지용)
  */
 export function useRecentBookmarks(limit = 12) {

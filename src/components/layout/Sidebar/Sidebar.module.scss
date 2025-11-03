@@ -3,8 +3,8 @@
 
 .sidebar {
   width: 18rem;
-  background: color(white);
-  border-right: 1px solid color(gray-200);
+  background-color: color(white);
+  border-right: 1px solid color(neutral-200);
   padding: space(lg);
   overflow-y: auto;
   flex-shrink: 0;
@@ -23,7 +23,7 @@
     height: 100vh;
     z-index: 50;
     border-right: none;
-    animation: slideIn 0.3s ease;
+    animation: slideIn 0.35s ease;
   }
 }
 
@@ -36,6 +36,16 @@
   }
 }
 
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+
 .header {
   display: flex;
   align-items: center;
@@ -45,23 +55,40 @@
 }
 
 .title {
-  font-size: map-get($font-sizes, lg);
+  display: flex;
+  align-items: center;
+  gap: space(sm);
+  font-size: map-get($font-sizes, base);
   font-weight: map-get($font-weights, semibold);
-  color: color(gray-900);
+  color: color(accent);
   margin: 0;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
 .closeButton {
   cursor: pointer;
   padding: space(xs);
   transition: map-get($transitions, fast);
+  border-radius: 0.375rem;
+  color: color(secondary);
+  
+  &:hover {
+    background-color: color(neutral-100);
+    color: color(accent);
+  }
+  
+  &:active {
+    background-color: color(neutral-200);
+  }
 }
 
 // 모바일 프로필 섹션
 .mobileProfile {
   padding: space(md);
   margin-bottom: space(lg);
-  border-bottom: 1px solid color(gray-200);
+  border-bottom: 1px solid color(neutral-200);
   position: relative;
 }
 
@@ -76,7 +103,7 @@
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background: color(gray-700);
+  background: color(primary);
   color: color(white);
   display: flex;
   align-items: center;
@@ -88,7 +115,7 @@
 
 .userId {
   font-size: map-get($font-sizes, sm);
-  color: color(gray-600);
+  color: color(secondary);
   @include truncate;
 }
 
@@ -100,15 +127,16 @@
   cursor: pointer;
   padding: space(xs);
   transition: map-get($transitions, fast);
+  border-radius: 0.375rem;
+  color: color(secondary);
   
   &:hover {
-    color: color(gray-900);
-    background-color: color(gray-100);
-    border-radius: 0.25rem;
+    color: color(accent);
+    background-color: color(neutral-100);
   }
   
   &:active {
-    background-color: color(gray-200);
+    background-color: color(neutral-200);
   }
 }
 
@@ -129,18 +157,19 @@
   border-radius: 0.25rem;
   cursor: pointer;
   font-size: map-get($font-sizes, sm);
-  color: color(gray-700);
+  color: color(primary);
   transition: map-get($transitions, fast);
   
   &:hover {
-    background-color: color(gray-100);
+    background-color: color(neutral-100);
+    color: color(accent);
   }
   
   &.logout {
     color: color(danger);
     
     &:hover {
-      background-color: rgba(color(danger), 0.1);
+      background-color: rgba(color(danger), 0.08);
     }
   }
   
@@ -164,35 +193,73 @@
 .categoryItem {
   display: flex;
   padding: space(sm) space(md);
+  align-items: center;
+  gap: space(sm);
   border: none;
   background: none;
   cursor: pointer;
   width: 100%;
-  color: color(gray-600);
+  color: color(primary);
+  border-radius: 0.5rem;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+  font-size: map-get($font-sizes, sm);
   
-  &:hover {
-    color: color(gray-800);
-    background-color: color(gray-200);
+  &:hover:not(.categoryItemActive) {
+    color: color(accent);
+    background-color: color(neutral-100);
+    
+    .categoryIcon {
+      color: color(accent);
+    }
   }
   
-  &.active {
-    background-color: rgba(color(gray-700), 0.1);
-    color: color(primary);
+  &:active {
+    transform: scale(0.98);
+  }
+  
+  &.categoryItemActive {
+    background-color: color(primary);
+    color: color(white);
     font-weight: map-get($font-weights, medium);
+    
+    .categoryIcon {
+      color: color(white);
+    }
+  
+    animation: categoryActivate 0.3s ease;
   }
 }
 
+@keyframes categoryActivate {
+  0% {
+    background-color: color(neutral-100);
+    transform: scale(0.98);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    background-color: color(primary);
+    transform: scale(1);
+  }
+}
+
+.categoryIcon {
+  flex-shrink: 0;
+  color: color(secondary-light);
+  transition: color 0.25s ease;
+}
+
 .categoryName {
-  display: flex;
-  align-items: center;
+  flex: 1;
   @include truncate;
 }
 
 .bookmarkCount {
   font-size: map-get($font-sizes, xs);
-  color: color(gray-500);
+  color: color(secondary-light);
   padding: 2px 6px;
-  background-color: color(gray-100);
+  background-color: color(neutral-100);
   border-radius: 10px;
   min-width: 18px;
   text-align: center;
@@ -201,7 +268,7 @@
 .loading {
   padding: space(md);
   text-align: center;
-  color: color(gray-500);
+  color: color(secondary);
   font-size: map-get($font-sizes, sm);
 }
 
@@ -216,7 +283,7 @@
 
 .emptySubtext {
   font-size: map-get($font-sizes, sm);
-  color: color(gray-500);
+  color: color(secondary);
   margin: 0;
   line-height: 1.5;
 }
@@ -225,24 +292,26 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: space(xs);
   padding: space(md) space(md);
+  gap: space(xs);
   margin-top: space(md);
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid color(neutral-200);
   background: none;
   cursor: pointer;
   transition: map-get($transitions, fast);
   width: 100%;
   text-align: left;
   font-size: map-get($font-sizes, sm);
-  color: color(gray-600);
+  color: color(secondary);
+  border-radius: 0.5rem;
+  font-weight: map-get($font-weights, medium);
   
   &:hover {
-    background-color: color(gray-200);
-    color: color(gray-800);
+    background-color: color(neutral-100);
+    color: color(primary-hover);
   }
   
   &:active {
-    background-color: color(gray-200);
+    background-color: color(neutral-200);
   }
 }

@@ -1,22 +1,62 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import * as authAPI from '@/api/authAPI'
 import { setAuthCookie, removeAuthCookie } from '@/lib/cookies'
 
 // 현재 로그인한 유저 정보를 가져오는 훅
 export function useCurrentUser() {
-  return useQuery({
+  const queryClient = useQueryClient()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  // 카테고리 페이지인지 확인
+  const isCategoryPage = pathname?.startsWith('/category/')
+
+  const query = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
-      const result = await authAPI.getCurrentUser()
-      return result
+      try {
+        const result = await authAPI.getCurrentUser()
+        return result
+      } catch (error) {
+        // 에러를 throw하지 않고 null 반환
+        console.error('getCurrentUser error:', error)
+        return null
+      }
     },
-    retry: false, // 인증 에러 시 재시도 하지 않음
-    staleTime: 30 * 60 * 1000, // 30분 동안 fresh 상태 유지
-    gcTime: 24 * 60 * 60 * 1000, // 24시간 동안 캐시 유지
+    retry: false,
+    staleTime: 30 * 60 * 1000,
+    gcTime: 24 * 60 * 60 * 1000,
+    throwOnError: false,
   })
+
+  // 인증 에러 시 자동 처리
+  useEffect(() => {
+    // 공개 카테고리 페이지에서는 에러 처리하지 않음
+    if (isCategoryPage) {
+      return
+    }
+
+    if (query.error) {
+      const handleAuthError = async () => {
+        try {
+          await removeAuthCookie()
+          queryClient.clear()
+          router.push('/')
+          router.refresh()
+        } catch (error) {
+          console.error('인증 에러 처리 실패:', error)
+        }
+      }
+      handleAuthError()
+    }
+
+  }, [query.error, isCategoryPage, queryClient, router])
+
+  return query
 }
 
 // 로그인 뮤테이션 훅

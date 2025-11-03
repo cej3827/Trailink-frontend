@@ -1,40 +1,33 @@
 export interface User {
   user_id: string
-//   email: string
   user_name: string
   user_profile_img?: string
-//   createdAt: string
-//   updatedAt: string
 }
 
 export interface Category {
   category_id: string
   category_name: string
   category_description?: string
-//   color?: string
-//   isPublic: boolean
   user_id: string
-  // bookmarkCount?: number
-  createdAt: string
-  updatedAt: string
+  created_at: string
+  updated_at: string
 }
 
 export interface Bookmark {
-  id: string
-  title: string
-  url: string
-  description?: string
-//   notes?: string
-  categoryId: string
-  category?: Category // 관계형 데이터
-  userId: string
-//   previewImage?: string
-//   favicon?: string
-//   isPublic: boolean
-  createdAt: string
-  updatedAt: string
-//   category?: Category // populate된 경우
+  bookmark_id: string
+  bookmark_title: string
+  bookmark_url: string
+  bookmark_description?: string
+  category_id: string
+  category?: Category 
+  user_id: string
+  created_at: string
+  updated_at: string
 }
+
+// export interface Bookmarks {
+
+// }
 
 // API 요청용 타입들
 export interface CreateBookmarkData {
