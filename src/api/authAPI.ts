@@ -1,6 +1,6 @@
 'use server'
 
-import { API_BASE_URL } from './index'
+import { API_BASE_URL } from '@/types'
 import { LoginCredentials } from '@/types'
 import { cookies } from 'next/headers'
 

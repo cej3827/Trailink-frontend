@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import { useLogin } from "@/hooks/useAuth";
 import { useUIStore } from "@/store/uiStore";
+import Button from "@/components/ui/Button/Button";
 
 export default function LoginForm() {
   const { setShowLoginForm } = useUIStore();
@@ -77,13 +78,15 @@ export default function LoginForm() {
             />
           </div>
 
-          <button
+          <Button
             type="submit"
-            disabled={loginMutation.isPending}
-            className="w-full bg-gray-700 hover:bg-gray-800 disabled:bg-blue-400 text-white font-semibold py-3 px-4 transition-colors duration-200"
+            variant="primary"
+            fullWidth
+            isLoading={loginMutation.isPending}
+            className="w-full"
           >
-            {loginMutation.isPending ? "로그인 중..." : "로그인"}
-          </button>
+            로그인
+          </Button>
         </form>
 
         <div className="mt-6 text-center">

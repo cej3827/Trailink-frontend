@@ -34,6 +34,21 @@ export default function AuthenticatedLayout({ children }: AuthenticatedLayoutPro
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [closeSidebar])
+
+
+
+  // 모바일에서 body 스크롤 방지
+  useEffect(() => {
+  if (isMobile && sidebarOpen) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'unset'
+  }
+
+  return () => {
+    document.body.style.overflow = 'unset'
+  }
+}, [isMobile, sidebarOpen])
   
 
   return (

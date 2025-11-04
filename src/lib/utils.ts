@@ -1,14 +1,5 @@
-// // // 공통 유틸리티 함수들 (자주 쓰는 도구들)
+// 공통 유틸리티 함수등
 
-import { clsx, type ClassValue } from 'clsx'
-
-/**
- * 클래스명을 조건부로 결합하는 유틸리티 함수
- * Tailwind CSS와 SCSS 클래스를 함께 사용할 때 유용
- */
-export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs)
-}
 
 /**
  * URL이 유효한지 검증하는 함수
@@ -58,32 +49,5 @@ export function isValidUrl(string: string): boolean {
 //     return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`
 //   } catch {
 //     return '/icons/default-favicon.png'
-//   }
-// }
-
-// /**
-//  * 에러 객체에서 사용자에게 보여줄 메시지 추출
-//  */
-// export function getErrorMessage(error: unknown): string {
-//   if (error instanceof Error) {
-//     return error.message
-//   }
-//   if (typeof error === 'string') {
-//     return error
-//   }
-//   return '알 수 없는 오류가 발생했습니다.'
-// }
-
-// /**
-//  * 디바운스 함수 - 검색어 입력 시 사용
-//  */
-// export function debounce<T extends (...args: any[]) => void>(
-//   func: T,
-//   wait: number
-// ): (...args: Parameters<T>) => void {
-//   let timeout: NodeJS.Timeout
-//   return (...args: Parameters<T>) => {
-//     clearTimeout(timeout)
-//     timeout = setTimeout(() => func(...args), wait)
 //   }
 // }

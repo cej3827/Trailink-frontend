@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useCreateCategory, useUpdateCategory } from '@/hooks/useCategories'
+import { useCreateCategory } from '@/hooks/useCategories'
 import { useUIStore } from '@/store/uiStore'
 import Modal from '@/components/ui/Modal/Modal'
 import Button from '@/components/ui/Button/Button'
@@ -21,10 +21,11 @@ export default function CategoryForm() {
   })
   
   const createMutation = useCreateCategory()
-  const updateMutation = useUpdateCategory()
+  // const updateMutation = useUpdateCategory()
   
   const isEditing = Boolean(editingCategory)
-  const isLoading = createMutation.isPending || updateMutation.isPending
+  // const isLoading = createMutation.isPending || updateMutation.isPending
+    const isLoading = createMutation.isPending
 
   // 초기 데이터 설정
   useEffect(() => {
@@ -51,10 +52,10 @@ export default function CategoryForm() {
 
     try {
       if (isEditing && editingCategory) {
-        await updateMutation.mutateAsync({
-          categoryId: editingCategory.category_id,
-          data: formData
-        })
+        // await updateMutation.mutateAsync({
+        //   categoryId: editingCategory.category_id,
+        //   data: formData
+        // })
       } else {
         await createMutation.mutateAsync(formData as CreateCategoryData)
       }

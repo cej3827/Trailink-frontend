@@ -74,53 +74,6 @@
   }
 }
 
-// 색상 변형
-// .primary {
-//   background-color: color(primary);
-//   border-color: color(primary);
-//   color: color(white);
-  
-//   &:hover:not(:disabled) {
-//     background-color: darken(color(primary), 5%);
-//     border-color: darken(color(primary), 5%);
-//   }
-  
-//   &:active:not(:disabled) {
-//     background-color: darken(color(primary), 10%);
-//     border-color: darken(color(primary), 10%);
-//   }
-// }
-
-// .secondary {
-//   background-color: color(gray-100);
-//   border-color: color(gray-200);
-//   color: color(gray-900);
-  
-//   &:hover:not(:disabled) {
-//     background-color: color(gray-200);
-//     border-color: color(gray-300);
-//   }
-  
-//   &:active:not(:disabled) {
-//     background-color: color(gray-300);
-//   }
-// }
-
-// .ghost {
-//   background-color: transparent;
-//   border-color: transparent;
-//   color: color(gray-700);
-  
-//   &:hover:not(:disabled) {
-//     background-color: color(gray-100);
-//     color: color(gray-900);
-//   }
-  
-//   &:active:not(:disabled) {
-//     background-color: color(gray-200);
-//   }
-// }
-
 .outline {
   background-color: transparent;
   border-color: color(neutral-200);
@@ -179,20 +132,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.spinner {
-  width: 16px;
-  height: 16px;
-  animation: spin 1s linear infinite;
-}
-
-.spinnerCircle {
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-dasharray: 60;
-  stroke-dashoffset: 60;
-  animation: spinnerDash 1.5s ease-in-out infinite;
+  margin-right: space(xs);
 }
 
 // 버튼 텍스트
@@ -200,28 +140,3 @@
   display: flex;
   align-items: center;
 }
-
-// // 애니메이션
-// @keyframes spin {
-//   0% {
-//     transform: rotate(0deg);
-//   }
-//   100% {
-//     transform: rotate(360deg);
-//   }
-// }
-
-// @keyframes spinnerDash {
-//   0% {
-//     stroke-dasharray: 1, 60;
-//     stroke-dashoffset: 0;
-//   }
-//   50% {
-//     stroke-dasharray: 30, 60;
-//     stroke-dashoffset: -15;
-//   }
-//   100% {
-//     stroke-dasharray: 30, 60;
-//     stroke-dashoffset: -45;
-//   }
-// }

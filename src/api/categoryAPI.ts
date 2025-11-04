@@ -1,8 +1,8 @@
 'use server'
 
-import { API_BASE_URL, getHeaders } from './index'
+import { API_BASE_URL } from '@/types'
 import { cookies } from 'next/headers'
-import { CreateCategoryData, UpdateCategoryData } from '@/types'
+import { CreateCategoryData } from '@/types'
 
 // 카테고리 목록 조회
 export async function getCategories() {
@@ -99,29 +99,29 @@ export async function createCategory(payload: CreateCategoryData) {
   }
 }
 
-// 카테고리 수정
-export async function updateCategory(id: string, data: UpdateCategoryData) {
-  const response = await fetch(`${API_BASE_URL}/categories/${id}`, {
-    method: 'PUT',
-    headers: getHeaders(),
-    body: JSON.stringify(data),
-  })
+// // 카테고리 수정
+// export async function updateCategory(id: string, data: UpdateCategoryData) {
+//   const response = await fetch(`${API_BASE_URL}/categories/${id}`, {
+//     method: 'PUT',
+//     headers: getHeaders(),
+//     body: JSON.stringify(data),
+//   })
   
-  if (!response.ok) {
-    throw new Error('카테고리 수정 실패')
-  }
+//   if (!response.ok) {
+//     throw new Error('카테고리 수정 실패')
+//   }
   
-  return response.json()
-}
+//   return response.json()
+// }
 
-// 카테고리 삭제
-export async function deleteCategory(id: string) {
-  const response = await fetch(`${API_BASE_URL}/categories/${id}`, {
-    method: 'DELETE',
-    headers: getHeaders(),
-  })
+// // 카테고리 삭제
+// export async function deleteCategory(id: string) {
+//   const response = await fetch(`${API_BASE_URL}/categories/${id}`, {
+//     method: 'DELETE',
+//     headers: getHeaders(),
+//   })
   
-  if (!response.ok) {
-    throw new Error('카테고리 삭제 실패')
-  }
-}
+//   if (!response.ok) {
+//     throw new Error('카테고리 삭제 실패')
+//   }
+// }
