@@ -1,7 +1,7 @@
 'use server'
 
-import { API_BASE_URL, getHeaders } from './index'
-import { CreateBookmarkData, UpdateBookmarkData } from '@/types'
+import { API_BASE_URL } from '@/types'
+import { CreateBookmarkData } from '@/types'
 import { cookies } from 'next/headers'
 
 // 최근 북마크 조회
@@ -151,20 +151,20 @@ export async function getBookmarksByCategory(categoryId: string, params?: {
   }
 }
 
-// 북마크 수정
-export async function updateBookmark(id: string, data: UpdateBookmarkData) {
-  const response = await fetch(`${API_BASE_URL}/bookmarks/${id}`, {
-    method: 'PUT',
-    headers: getHeaders(),
-    body: JSON.stringify(data),
-  })
+// // 북마크 수정
+// export async function updateBookmark(id: string, data: UpdateBookmarkData) {
+//   const response = await fetch(`${API_BASE_URL}/bookmarks/${id}`, {
+//     method: 'PUT',
+//     headers: getHeaders(),
+//     body: JSON.stringify(data),
+//   })
   
-  if (!response.ok) {
-    throw new Error('북마크 수정 실패')
-  }
+//   if (!response.ok) {
+//     throw new Error('북마크 수정 실패')
+//   }
   
-  return response.json()
-}
+//   return response.json()
+// }
 
 // // 북마크 삭제
 // export async function deleteBookmark(id: string) {

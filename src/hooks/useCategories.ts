@@ -2,7 +2,7 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import * as categoryAPI from '@/api/categoryAPI'
-import { Category, CreateCategoryData, UpdateCategoryData } from '@/types'
+import { CreateCategoryData} from '@/types'
 import { toast } from 'react-hot-toast'
 
 
@@ -14,6 +14,7 @@ export function useCategories() {
       const result = await categoryAPI.getCategories()
       return result
     },
+    placeholderData: [],
     staleTime: 30 * 60 * 1000, // 30분 동안 fresh 상태 유지
     gcTime: 24 * 60 * 60 * 1000, // 24시간 동안 캐시 유지
     retry: false, // 에러 시 재시도하지 않음
@@ -28,16 +29,9 @@ export function useCreateCategory() {
 
   return useMutation({
     mutationFn: (data: CreateCategoryData) => categoryAPI.createCategory(data),
-    onSuccess: async (newCategory) => {
-      // 카테고리 목록 캐시 업데이트
-      queryClient.setQueryData<Category[]>(['categories'], (oldData) => {
-        if (!oldData) return [newCategory]
-        return [...oldData, newCategory]
-      })
-
-      // 카테고리 목록 다시 불러오기 (최신 데이터 보장)
-      queryClient.invalidateQueries({ queryKey: ['categories'] })
-
+    onSuccess: async () => {
+      // 카테고리 목록 다시 불러오기 
+      await queryClient.invalidateQueries({ queryKey: ['categories'] })
       toast.success('카테고리가 생성되었습니다.')
     },
     onError: (error: Error) => {
@@ -49,34 +43,34 @@ export function useCreateCategory() {
 /**
  * 카테고리 수정 뮤테이션 훅
  */
-export function useUpdateCategory() {
-  const queryClient = useQueryClient()
+// export function useUpdateCategory() {
+//   const queryClient = useQueryClient()
 
-  return useMutation({
-    mutationFn: ({ categoryId, data }: { categoryId: string; data: UpdateCategoryData }) =>
-      categoryAPI.updateCategory(categoryId, data),
-    onSuccess: (updatedCategory, { categoryId }) => {
-      // 개별 카테고리 캐시 업데이트
-      queryClient.setQueryData(['categories', categoryId], updatedCategory)
+//   return useMutation({
+//     mutationFn: ({ categoryId, data }: { categoryId: string; data: UpdateCategoryData }) =>
+//       categoryAPI.updateCategory(categoryId, data),
+//     onSuccess: (updatedCategory, { categoryId }) => {
+//       // 개별 카테고리 캐시 업데이트
+//       queryClient.setQueryData(['categories', categoryId], updatedCategory)
 
-      // 카테고리 목록 캐시 업데이트
-      queryClient.setQueryData<Category[]>(['categories'], (oldData) => {
-        if (!oldData) return [updatedCategory]
-        return oldData.map((category) =>
-          category.category_id === categoryId ? updatedCategory : category
-        )
-      })
+//       // 카테고리 목록 캐시 업데이트
+//       queryClient.setQueryData<Category[]>(['categories'], (oldData) => {
+//         if (!oldData) return [updatedCategory]
+//         return oldData.map((category) =>
+//           category.category_id === categoryId ? updatedCategory : category
+//         )
+//       })
 
-      // 관련 북마크 쿼리도 무효화 (카테고리 이름이 바뀌었을 수 있음)
-      queryClient.invalidateQueries({ queryKey: ['bookmarks', 'category', categoryId] })
+//       // 관련 북마크 쿼리도 무효화 (카테고리 이름이 바뀌었을 수 있음)
+//       queryClient.invalidateQueries({ queryKey: ['bookmarks', 'category', categoryId] })
 
-      toast.success('카테고리가 수정되었습니다.')
-    },
-    onError: (error: Error) => {
-      toast.error(error.message || '카테고리 수정에 실패했습니다.')
-    },
-  })
-}
+//       toast.success('카테고리가 수정되었습니다.')
+//     },
+//     onError: (error: Error) => {
+//       toast.error(error.message || '카테고리 수정에 실패했습니다.')
+//     },
+//   })
+// }
 
 // /**
 //  * 카테고리 삭제 뮤테이션 훅
@@ -104,60 +98,5 @@ export function useUpdateCategory() {
 //     onError: (error: Error) => {
 //       toast.error(error.message || '카테고리 삭제에 실패했습니다.')
 //     },
-//   })
-// }
-
-// /**
-//  * 카테고리 공개/비공개 토글 뮤테이션 훅
-//  */
-// export function useToggleCategoryPublic() {
-//   const queryClient = useQueryClient()
-
-//   return useMutation({
-//     mutationFn: ({ categoryId, isPublic }: { categoryId: string; isPublic: boolean }) =>
-//       categoryAPI.updateCategory(categoryId, { isPublic }),
-//     onSuccess: (updatedCategory, { categoryId }) => {
-//       // 개별 카테고리 캐시 업데이트
-//       queryClient.setQueryData(QUERY_KEYS.CATEGORY(categoryId), updatedCategory)
-
-//       // 카테고리 목록 캐시 업데이트
-//       queryClient.setQueryData<Category[]>(QUERY_KEYS.CATEGORIES, (oldData) => {
-//         if (!oldData) return [updatedCategory]
-//         return oldData.map((category) =>
-//           category.id === categoryId ? updatedCategory : category
-//         )
-//       })
-
-//       toast.success(
-//         updatedCategory.isPublic ? '카테고리가 공개되었습니다.' : '카테고리가 비공개되었습니다.'
-//       )
-//     },
-//     onError: (error: Error) => {
-//       toast.error(error.message || '카테고리 공개 설정 변경에 실패했습니다.')
-//     },
-//   })
-// }
-
-// /**
-//  * 공개 카테고리 정보를 가져오는 훅
-//  */
-// export function usePublicCategory(slug: string) {
-//   return useQuery({
-//     queryKey: QUERY_KEYS.PUBLIC_CATEGORY(slug),
-//     queryFn: () => categoryAPI.getPublicCategoryBySlug(slug),
-//     enabled: !!slug,
-//     staleTime: 10 * 60 * 1000, // 10분간 캐시 (공개 페이지는 더 오래 캐시)
-//     retry: false, // 404 에러 시 재시도하지 않음
-//   })
-// }
-
-// /**
-//  * 카테고리별 북마크 개수를 포함한 카테고리 목록
-//  */
-// export function useCategoriesWithCount() {
-//   return useQuery({
-//     queryKey: QUERY_KEYS.CATEGORIES_WITH_COUNT,
-//     queryFn: categoryAPI.getCategoriesWithCount,
-//     staleTime: 5 * 60 * 1000,
 //   })
 // }

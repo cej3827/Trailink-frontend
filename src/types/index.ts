@@ -1,3 +1,5 @@
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export interface User {
   user_id: string
   user_name: string

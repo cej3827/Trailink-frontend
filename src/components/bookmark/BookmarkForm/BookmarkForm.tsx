@@ -2,7 +2,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useCreateBookmark, useUpdateBookmark } from '@/hooks/useBookmarks'
+import { useCreateBookmark } from '@/hooks/useBookmarks'
 import { useCategories } from '@/hooks/useCategories'
 import { useUIStore } from '@/store/uiStore'
 import Modal from '@/components/ui/Modal/Modal'
@@ -28,7 +28,7 @@ export default function BookmarkForm() {
   })
   
   const createMutation = useCreateBookmark()
-  const updateMutation = useUpdateBookmark()
+  // const updateMutation = useUpdateBookmark()
   
   const isEditing = Boolean(editingBookmark)
   const isLoading = createMutation.isPending
@@ -77,10 +77,10 @@ export default function BookmarkForm() {
 
     try {
       if (isEditing && editingBookmark) {
-        await updateMutation.mutateAsync({
-          id: editingBookmark.bookmark_id,
-          data: formData
-        })
+        // await updateMutation.mutateAsync({
+        //   id: editingBookmark.bookmark_id,
+        //   data: formData
+        // })
       } else {
         await createMutation.mutateAsync(formData as unknown as CreateBookmarkData)
       }

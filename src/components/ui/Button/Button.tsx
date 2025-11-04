@@ -1,8 +1,8 @@
 'use client'
 
 import { forwardRef, ButtonHTMLAttributes } from 'react'
-import { cn } from '@/lib/utils'
 import styles from './Button.module.scss'
+import { ButtonSpinner } from '@/components/ui/LoadingSpinner/LoadingSpinner'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline'
@@ -26,17 +26,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   ...props
 }, ref) => {
   const isDisabled = disabled || isLoading
+  
+  const classNameList = [
+    styles.button,
+    styles[variant],
+    styles[size],
+    isLoading && styles.loading,
+    fullWidth && styles.fullWidth,
+    className
+  ].filter(Boolean).join(' ')
 
   return (
     <button
-      className={cn(
-        styles.button,
-        styles[variant],
-        styles[size],
-        isLoading && styles.loading,
-        fullWidth && styles.fullWidth,
-        className
-      )}
+      className={classNameList}
       disabled={isDisabled}
       ref={ref}
       {...props}
@@ -47,22 +49,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
       
       {isLoading && (
         <span className={styles.loadingSpinner}>
-          {/* 간단한 로딩 스피너 */}
-          <svg className={styles.spinner} viewBox="0 0 24 24">
-            <circle
-              className={styles.spinnerCircle}
-              cx="12"
-              cy="12"
-              r="10"
-              fill="none"
-              strokeWidth="2"
-            />
-          </svg>
+          <ButtonSpinner size="sm" />
         </span>
       )}
       
       <span className={styles.buttonText}>
-        {isLoading ? 'Loading..' : children}
+        {children}
       </span>
       
       {rightIcon && !isLoading && (

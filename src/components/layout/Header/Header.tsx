@@ -4,6 +4,7 @@
 import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import SearchBar from '@/components/ui/SearchBar/SearchBar'
 import Button from '@/components/ui/Button/Button'
+import { ButtonSpinner } from '@/components/ui/LoadingSpinner/LoadingSpinner'
 import { useState, useEffect } from 'react'
 import styles from './Header.module.scss'
 import { useUIStore } from '@/store/uiStore'
@@ -136,7 +137,10 @@ export default function Header() {
                     onClick={handleLogout}
                     disabled={logout.isPending}
                   >
-                    {logout.isPending ? '로그아웃 중...' : '로그아웃'}
+                    <div className="flex items-center gap-2">
+                      {logout.isPending && <ButtonSpinner size="sm" />}
+                      <span>{logout.isPending ? '로그아웃 중...' : '로그아웃'}</span>
+                    </div>
                   </button>
                 </div>
               )}

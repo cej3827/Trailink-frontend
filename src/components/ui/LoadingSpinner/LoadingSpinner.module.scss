@@ -124,21 +124,6 @@
   }
 }
 
-// // 다크모드 지원
-// [data-theme="dark"] & {
-//   .fullScreen {
-//     background-color: rgba(0, 0, 0, 0.8);
-//   }
-  
-//   .overlay {
-//     background-color: rgba(0, 0, 0, 0.9);
-//   }
-  
-//   .spinnerText {
-//     color: color(gray-300);
-//   }
-// }
-
 // 접근성을 위한 스크린 리더 전용 텍스트
 .sr-only {
   position: absolute;

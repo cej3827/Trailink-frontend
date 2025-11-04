@@ -8,6 +8,7 @@ import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import { useUIStore } from '@/store/uiStore'
 import Button from '@/components/ui/Button/Button'
 import LoadingSpinner from '@/components/ui/LoadingSpinner/LoadingSpinner'
+import { ButtonSpinner } from '@/components/ui/LoadingSpinner/LoadingSpinner'
 import { 
   Plus, 
   Folder,
@@ -19,6 +20,7 @@ import {
   Hash
 } from 'lucide-react'
 import styles from './Sidebar.module.scss'
+import { Category } from '@/types'
 
 
 interface SidebarProps {
@@ -47,13 +49,6 @@ export default function Sidebar({ isMobile }: SidebarProps) {
     logout.mutate()
     closeSidebar()
   }
-
-  // const handleCategoryClick = () => {
-  //   // 모바일에서는 카테고리 클릭 시 사이드바 닫기
-  //   if (isMobile) {
-  //     closeSidebar()
-  //   }
-  // }
 
   return (
     <>
@@ -92,7 +87,11 @@ export default function Sidebar({ isMobile }: SidebarProps) {
                 onClick={handleLogout}
                 disabled={logout.isPending}
               >
-                <LogOut size={18} />
+                {logout.isPending ? (
+                  <ButtonSpinner size="sm" />
+                ) : (
+                  <LogOut size={18} />
+                )}
                 <span>{logout.isPending ? '로그아웃 중...' : '로그아웃'}</span>
               </button>
             </div>
@@ -124,8 +123,8 @@ export default function Sidebar({ isMobile }: SidebarProps) {
                 <div className={styles.categoryLoading}>
                   <LoadingSpinner size="sm" />
                 </div>
-              ) : categories && categories.length > 0 ? (
-                categories.map((category: { category_id: string; category_name: string; }) => {
+              ) : categories.length > 0 ? (
+                categories.map((category: Category) => {
                   const active = isActive(`/category/${category.category_id}`)
                   return (
                     <Link

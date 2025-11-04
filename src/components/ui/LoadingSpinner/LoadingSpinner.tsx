@@ -1,6 +1,5 @@
 'use client'
 
-import { cn } from '@/lib/utils'
 import styles from './LoadingSpinner.module.scss'
 
 interface LoadingSpinnerProps {
@@ -18,17 +17,23 @@ export default function LoadingSpinner({
   text,
   fullScreen = false,
 }: LoadingSpinnerProps) {
+
+  const containerClassNames = [
+    styles.spinnerContainer,
+    fullScreen && styles.fullScreen,
+    className
+  ].filter(Boolean).join(' ')
+
+  const spinnerClassNames = [
+    styles.spinner,
+    styles[size],
+    styles[color]
+  ].filter(Boolean).join(' ')
+
+
   const spinnerContent = (
-    <div className={cn(
-      styles.spinnerContainer,
-      fullScreen && styles.fullScreen,
-      className
-    )}>
-      <div className={cn(
-        styles.spinner,
-        styles[size],
-        styles[color]
-      )}>
+    <div className={containerClassNames}>
+      <div className={spinnerClassNames}>
         <div className={styles.spinnerBorder}></div>
       </div>
       {text && (
