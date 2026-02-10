@@ -1,34 +1,34 @@
 // 색상 시스템
 $colors: (
   // 기본 색상
-  white: #F5F5F5,
-  cleanWhite: #FFFFFF,
-  black: #1A1A1A,
+  white: #f6f6f4,
+  cleanWhite: #fcfcfb,
+  black: #16181d,
   
   // 무채색 팔레트 (neutral)
-  neutral-50: #f9fafb,
-  neutral-100: #f3f4f6,
-  neutral-200: #e5e7eb,
-  neutral-300: #d1d5db,
-  neutral-400: #9ca3af,
-  neutral-500: #6b7280,
-  neutral-600: #4b5563,
-  neutral-700: #374151,
-  neutral-800: #1f2937,
-  neutral-900: #111827,
-  neutral-950: #0a0a0a,
+  neutral-50: #f6f6f4,
+  neutral-100: #ededeb,
+  neutral-200: #d7d7d2,
+  neutral-300: #bdbcb5,
+  neutral-400: #9b9992,
+  neutral-500: #7a786f,
+  neutral-600: #5f5d55,
+  neutral-700: #45443d,
+  neutral-800: #2f2e28,
+  neutral-900: #1f1e1a,
+  neutral-950: #141411,
   
   
-  primary: #374151,         // gray-700 - 주요 버튼, 텍스트
-  primary-hover: #1f2937,   // gray-800 - hover 상태
-  primary-light: #4b5563,   // gray-600 - 약한 강조
+  primary: #3f5b7a,         // 차분한 블루 - 주요 버튼, 텍스트
+  primary-hover: #2f4560,   // hover 상태
+  primary-light: #516c8a,   // 약한 강조
   
-  secondary: #4b5563,       // gray-600 - 보조 텍스트
-  secondary-hover: #374151, // gray-700 - hover 상태
-  secondary-light: #6b7280, // gray-500 - 더 연한 텍스트
+  secondary: #5f5d55,       // neutral-600 - 보조 텍스트
+  secondary-hover: #45443d,// neutral-700 - hover 상태
+  secondary-light: #7a786f,// neutral-500 - 더 연한 텍스트
   
-  accent: #111827,          // gray-900 - 강한 강조
-  accent-hover: #0a0a0a,    // 진한 hover
+  accent: #1f1e1a,          // neutral-900 - 강한 강조
+  accent-hover: #141411,    // neutral-950 - 진한 hover
   
   // 상태 색상
   success: #10b981,
@@ -36,16 +36,16 @@ $colors: (
   danger: #ef4444,
   
   // 레거시 (호환성 유지)
-  gray-50: #f9fafb,
-  gray-100: #f3f4f6,
-  gray-200: #e5e7eb,
-  gray-300: #d1d5db,
-  gray-400: #9ca3af,
-  gray-500: #6b7280,
-  gray-600: #4b5563,
-  gray-700: #374151,
-  gray-800: #1f2937,
-  gray-900: #111827,
+  gray-50: #f6f6f4,
+  gray-100: #ededeb,
+  gray-200: #d7d7d2,
+  gray-300: #bdbcb5,
+  gray-400: #9b9992,
+  gray-500: #7a786f,
+  gray-600: #5f5d55,
+  gray-700: #45443d,
+  gray-800: #2f2e28,
+  gray-900: #1f1e1a,
 );
 
 // 스페이싱 시스템

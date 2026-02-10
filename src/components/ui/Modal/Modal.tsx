@@ -42,14 +42,14 @@ export default function Modal({
   if (!isOpen) return null
 
   const modalContent = (
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={`${styles.overlay} fixed inset-0 flex items-center justify-center`} onClick={onClose}>
         <div 
-            className={`${styles.modal} ${styles[maxWidth]}`}
+            className={`${styles.modal} ${styles[maxWidth]} w-full flex flex-col overflow-hidden`}
             onClick={(e) => e.stopPropagation()}
         >
 
         {(title || showCloseButton) && (
-          <div className={styles.header}>
+          <div className={`${styles.header} flex items-center justify-between`}>
             {title && <h2 className={styles.title}>{title}</h2>}
             {showCloseButton && (
               <Button
@@ -67,7 +67,7 @@ export default function Modal({
           </div>
         )}
         
-        <div className={styles.content}>
+        <div className={`${styles.content} flex-1 overflow-y-auto`}>
           {children}
         </div>
       </div>

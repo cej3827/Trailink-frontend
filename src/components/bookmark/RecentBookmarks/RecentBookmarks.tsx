@@ -28,16 +28,28 @@ export default function RecentBookmarks() {
   }
 
   return (
-    <div className="w-full p-6">
+    <div className="w-full p-4 sm:p-6">
+      {/* 상단 미세 그라데이션 바 */}
+      <div
+        className="mb-4 h-1 w-full rounded-full bg-gradient-to-r from-neutral-200 via-neutral-100 to-neutral-200"
+        aria-hidden="true"
+      />
       {/* 헤더 영역 */}
-      <div className="flex items-center mt-3 mb-6 gap-3">
-        <h2 className="text-xl font-medium text-primary">Recent Bookmarks</h2>
+      <div className="relative mt-3 mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl font-medium text-primary">Recent Bookmarks</h2>
+            <span className="h-px w-10 bg-neutral-300" aria-hidden="true" />
+            <span className="h-1 w-1 rounded-full bg-neutral-400" aria-hidden="true" />
+          </div>
+        </div>
         <button 
-          className="flex items-center text-primary rounded-full hover:text-accent hover:scale-105 transition-all duration-200"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3.5 py-2 text-sm font-medium text-primary shadow-sm hover:bg-neutral-100 hover:border-neutral-300 hover:text-accent transition-all duration-200"
           onClick={handleAddBookmark}
           aria-label="북마크 추가"
         >
-          <CirclePlus size={30} />
+          <CirclePlus size={18} />
+          <span>북마크 추가</span>
         </button>
       </div>
 
@@ -50,8 +62,9 @@ export default function RecentBookmarks() {
         emptyActionButton={
           <button
             onClick={handleAddBookmark}
-            className="mt-4 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors"
+            className="mt-4 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-5 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-neutral-100 hover:border-neutral-300 hover:text-accent transition-colors"
           >
+            <CirclePlus size={18} />
             첫 번째 북마크 추가하기
           </button>
         }

@@ -104,46 +104,155 @@ export default function CategoryBookmarksView({
   }
 
   return (
-    <div className="w-full p-6">
-      {/* 헤더 영역 */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-gray-800">
+    <div className="w-full p-4 sm:p-6 pb-24 sm:pb-6">
+      {/* 모바일 헤더 */}
+      <div className="sm:hidden mb-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-xl font-semibold text-gray-800 truncate">
               {currentCategory?.category_name || '카테고리'}
             </h1>
+            {currentCategory?.category_description && (
+              <p className="mt-1 text-xs text-secondary line-clamp-2">
+                {currentCategory.category_description}
+              </p>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {isOwner && (
+              <button
+                onClick={handleEditCategory}
+                className="inline-flex items-center justify-center rounded-full p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-800 transition-all"
+                aria-label="카테고리 수정"
+                title="수정"
+              >
+                <Edit2 size={14} />
+              </button>
+            )}
+            <button
+              onClick={handleShare}
+              className="inline-flex items-center justify-center rounded-full p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-800 transition-all"
+              aria-label="카테고리 공유"
+              title="공유"
+            >
+              <Share2 size={14} />
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1 rounded-full bg-neutral-50 p-1">
+            <button
+              onClick={() => setViewMode('card')}
+              className={`p-2 rounded-full transition-all ${
+                viewMode === 'card'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-secondary hover:text-neutral-700 hover:bg-white'
+              }`}
+              aria-label="카드 뷰"
+            >
+              <Grid size={16} />
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={`p-2 rounded-full transition-all ${
+                viewMode === 'list'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-secondary hover:text-neutral-700 hover:bg-white'
+              }`}
+              aria-label="리스트 뷰"
+            >
+              <List size={16} />
+            </button>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-1 rounded-full bg-neutral-50 p-1">
+            <button
+              onClick={() => setSortBy('latest')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all ${
+                sortBy === 'latest'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-secondary hover:text-neutral-700 hover:bg-white'
+              }`}
+              aria-label="최신순 정렬"
+            >
+              <Clock size={12} />
+              최신
+            </button>
+            <button
+              onClick={() => setSortBy('oldest')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all ${
+                sortBy === 'oldest'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-secondary hover:text-neutral-700 hover:bg-white'
+              }`}
+              aria-label="오래된순 정렬"
+            >
+              <AlarmClock size={12} />
+              오래됨
+            </button>
+            <button
+              onClick={() => setSortBy('name')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all ${
+                sortBy === 'name'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-secondary hover:text-neutral-700 hover:bg-white'
+              }`}
+              aria-label="이름순 정렬"
+            >
+              <ArrowDownAZ size={12} />
+              이름
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 데스크탑/태블릿 헤더 */}
+      <div className="hidden sm:block mb-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl font-bold text-gray-800">
+                {currentCategory?.category_name || '카테고리'}
+              </h1>
+              <span className="h-px w-10 bg-neutral-300" aria-hidden="true" />
+              <span className="h-1 w-1 rounded-full bg-neutral-400" aria-hidden="true" />
+            </div>
             
             {/* 북마크 추가 버튼 (소유자만) */}
             {isOwner && (
               <button
                 onClick={handleAddBookmark}
-                className="flex items-center text-primary rounded-full hover:text-accent hover:scale-105 transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-neutral-50 hover:border-neutral-300 hover:text-accent transition-all duration-200"
                 aria-label="북마크 추가"
               >
-                <CirclePlus size={26} />
+                <CirclePlus size={18} />
+                <span>북마크 추가</span>
               </button>
             )}
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             {/* 카테고리 수정 버튼 (소유자만) */}
             {isOwner && (
               <button
                 onClick={handleEditCategory}
-                className="flex items-center gap-1.5 px-3 py-1.5 border border-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-50 hover:border-neutral-300 transition-all text-sm"
+                className="inline-flex items-center justify-center rounded-full p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-800 transition-all"
+                aria-label="카테고리 수정"
+                title="수정"
               >
                 <Edit2 size={14} />
-                <span className="hidden sm:inline">수정</span>
               </button>
             )}
             
             {/* 공유 버튼 */}
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 px-3 py-1.5 border border-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-50 hover:border-neutral-300 transition-all text-sm"
+              className="inline-flex items-center justify-center rounded-full p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-800 transition-all"
+              aria-label="카테고리 공유"
+              title="공유"
             >
               <Share2 size={14} />
-              <span className="hidden sm:inline">공유</span>
             </button>
           </div>
         </div>
@@ -156,15 +265,15 @@ export default function CategoryBookmarksView({
         )}
 
         {/* 컨트롤 바 */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           {/* 뷰 모드 토글 */}
-          <div className="flex items-center gap-0.5 border border-neutral-200 rounded-lg p-0.5">
+          <div className="flex items-center gap-1 rounded-full bg-neutral-50 p-1">
             <button
               onClick={() => setViewMode('card')}
-              className={`p-1.5 rounded-md transition-all ${
+              className={`p-2 rounded-full transition-all ${
                 viewMode === 'card' 
                   ? 'bg-primary text-white shadow-sm' 
-                  : 'text-secondary hover:text-neutral-700 hover:bg-neutral-50'
+                  : 'text-secondary hover:text-neutral-700 hover:bg-white'
               }`}
               aria-label="카드 뷰"
             >
@@ -172,10 +281,10 @@ export default function CategoryBookmarksView({
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`p-1.5 rounded-md transition-all ${
+              className={`p-2 rounded-full transition-all ${
                 viewMode === 'list' 
                   ? 'bg-primary text-white shadow-sm' 
-                  : 'text-secondary hover:text-neutral-700 hover:bg-neutral-50'
+                  : 'text-secondary hover:text-neutral-700 hover:bg-white'
               }`}
               aria-label="리스트 뷰"
             >
@@ -185,13 +294,13 @@ export default function CategoryBookmarksView({
 
           {/* 정렬 옵션 */}
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-0.5 border border-neutral-200 rounded-lg p-0.5 bg-white">
+            <div className="flex flex-wrap items-center gap-1 rounded-full bg-neutral-50 p-1">
               <button
                 onClick={() => setSortBy('latest')}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-sm transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm transition-all ${
                   sortBy === 'latest'
                     ? 'bg-primary text-white shadow-sm'
-                    : 'text-secondary hover:text-neutral-700 hover:bg-neutral-50'
+                    : 'text-secondary hover:text-neutral-700 hover:bg-white'
                 }`}
                 aria-label="최신순 정렬"
               >
@@ -200,10 +309,10 @@ export default function CategoryBookmarksView({
               </button>
               <button
                 onClick={() => setSortBy('oldest')}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-sm transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm transition-all ${
                   sortBy === 'oldest'
                     ? 'bg-primary text-white shadow-sm'
-                    : 'text-secondary hover:text-neutral-700 hover:bg-neutral-50'
+                    : 'text-secondary hover:text-neutral-700 hover:bg-white'
                 }`}
                 aria-label="오래된순 정렬"
               >
@@ -212,10 +321,10 @@ export default function CategoryBookmarksView({
               </button>
               <button
                 onClick={() => setSortBy('name')}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-sm transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm transition-all ${
                   sortBy === 'name'
                     ? 'bg-primary text-white shadow-sm'
-                    : 'text-secondary hover:text-neutral-700 hover:bg-neutral-50'
+                    : 'text-secondary hover:text-neutral-700 hover:bg-white'
                 }`}
                 aria-label="이름순 정렬"
               >
@@ -244,8 +353,9 @@ export default function CategoryBookmarksView({
           isOwner ? (
             <button
               onClick={handleAddBookmark}
-              className="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-all shadow-sm text-sm"
+              className="mt-4 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-5 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-neutral-100 hover:border-neutral-300 hover:text-accent transition-colors"
             >
+              <CirclePlus size={18} />
               북마크 추가하기
             </button>
           ) : undefined
@@ -300,7 +410,16 @@ export default function CategoryBookmarksView({
           )}
         </>
       )}
+      
+      {isOwner && (
+        <button
+          onClick={handleAddBookmark}
+          className="sm:hidden fixed bottom-5 right-5 z-40 inline-flex items-center justify-center rounded-full bg-primary text-white shadow-lg h-14 w-14"
+          aria-label="북마크 추가"
+        >
+          <CirclePlus size={22} />
+        </button>
+      )}
     </div>
   )
 }
-

@@ -44,21 +44,21 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
       {...props}
     >
       {leftIcon && !isLoading && (
-        <span className={styles.leftIcon}>{leftIcon}</span>
+        <span className={`${styles.leftIcon} flex items-center justify-center shrink-0`}>{leftIcon}</span>
       )}
       
       {isLoading && (
-        <span className={styles.loadingSpinner}>
+        <span className={`${styles.loadingSpinner} flex items-center justify-center`}>
           <ButtonSpinner size="sm" />
         </span>
       )}
       
-      <span className={styles.buttonText}>
+      <span className={`${styles.buttonText} flex items-center`}>
         {children}
       </span>
       
       {rightIcon && !isLoading && (
-        <span className={styles.rightIcon}>{rightIcon}</span>
+        <span className={`${styles.rightIcon} flex items-center justify-center shrink-0`}>{rightIcon}</span>
       )}
     </button>
   )

@@ -1,6 +1,7 @@
 'use client'
 
 import { Bookmark } from '@/types'
+import { useUIStore } from '@/store/uiStore'
 import BookmarkCard from '../BookmarkCard/BookmarkCard'
 
 type ViewMode = 'card' | 'list'
@@ -26,6 +27,8 @@ export default function BookmarkGridView({
   emptyMessage = '북마크가 없습니다.',
   emptyActionButton
 }: BookmarkGridViewProps) {
+  const { sidebarOpen } = useUIStore()
+
   // 빈 상태
   if (bookmarks.length === 0) {
     return (
@@ -40,8 +43,8 @@ export default function BookmarkGridView({
   return (
     <div className={`${
       viewMode === 'card' 
-        ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6' 
-        : 'space-y-4'
+        ? `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ${sidebarOpen ? 'xl:grid-cols-4' : 'xl:grid-cols-5'} gap-4 sm:gap-6` 
+        : 'space-y-3 sm:space-y-4'
     }`}>
       {bookmarks.map((bookmark) => (
         <BookmarkCard
@@ -57,4 +60,3 @@ export default function BookmarkGridView({
     </div>
   )
 }
-

@@ -59,11 +59,11 @@ export default function SearchBar({
   return (
     <form 
       onSubmit={handleSubmit}
-      className={`${styles.searchForm}} ${className}`}
+      className={`${styles.searchForm} w-full ${className}`}
     >
-      <div className={`${styles.searchContainer} ${disabled ? styles.disabled : ''}`}>
+      <div className={`${styles.searchContainer} relative flex h-10 items-center ${disabled ? styles.disabled : ''}`}>
         <Search 
-          className={styles.searchIcon} 
+          className={`${styles.searchIcon} absolute left-3`} 
         />
         
         <input
@@ -73,7 +73,7 @@ export default function SearchBar({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled}
-          className={styles.searchInput}
+          className={`${styles.searchInput} min-w-0 flex-1`}
           aria-label="검색"
         />
         
