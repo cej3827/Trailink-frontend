@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useId } from 'react'
 import { useCreateCategory } from '@/hooks/useCategories'
 import { useUIStore } from '@/store/uiStore'
 import Modal from '@/components/ui/Modal/Modal'
@@ -19,6 +19,11 @@ export default function CategoryForm() {
     category_name: '',
     category_description: '',
   })
+
+  const nameId = useId()
+  const descriptionId = useId()
+  const maxNameLength = 50
+  const nameLength = formData.category_name.length
   
   const createMutation = useCreateCategory()
   // const updateMutation = useUpdateCategory()
@@ -83,27 +88,38 @@ export default function CategoryForm() {
       isOpen={categoryFormOpen}
       onClose={handleClose}
       title={isEditing ? '카테고리 수정' : '새 카테고리'}
-      maxWidth="md"
+      maxWidth="sm"
     >
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={`${styles.form} flex flex-col`}>
         {/* 카테고리 이름 */}
-        <div className={styles.field}>
-          <label className={styles.label}>카테고리 이름 *</label>
+        <div className={`${styles.field} flex flex-col`}>
+          <div className={`${styles.labelRow} flex items-center`}>
+            <label className={styles.label} htmlFor={nameId}>카테고리 이름</label>
+            <span className={styles.requiredBadge}>필수</span>
+            <span className={`${styles.counter} ml-auto`}>{nameLength}/{maxNameLength}</span>
+          </div>
           <input
+            id={nameId}
             type="text"
             value={formData.category_name}
             onChange={(e) => handleInputChange('category_name', e.target.value)}
             placeholder="카테고리 이름"
             className={styles.input}
             required
-            maxLength={50}
+            maxLength={maxNameLength}
+            autoFocus
           />
+          <p className={styles.helpText}>최대 50자까지 입력할 수 있어요.</p>
         </div>
 
         {/* 설명 */}
-        <div className={styles.field}>
-          <label className={styles.label}>설명</label>
+        <div className={`${styles.field} flex flex-col`}>
+          <div className={`${styles.labelRow} flex items-center`}>
+            <label className={styles.label} htmlFor={descriptionId}>설명</label>
+            <span className={styles.optionalBadge}>선택</span>
+          </div>
           <textarea
+            id={descriptionId}
             value={formData.category_description}
             onChange={(e) => handleInputChange('category_description', e.target.value)}
             placeholder="카테고리에 대한 설명"
@@ -113,7 +129,7 @@ export default function CategoryForm() {
         </div>
 
         {/* 버튼들 */}
-        <div className={styles.actions}>
+        <div className={`${styles.actions} flex justify-end`}>
           <Button
             type="button"
             variant="secondary"
