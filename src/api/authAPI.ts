@@ -45,7 +45,7 @@ export async function getCurrentUser() {
   const token = cookieStore.get('auth-token')?.value
 
   if (!token) {
-    throw new Error('토큰이 없습니다')
+    return null
   } 
 
   const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
@@ -64,6 +64,10 @@ export async function getCurrentUser() {
       // 쿠키 삭제
       cookieStore.delete('auth-token')
       throw new Error('TOKEN_EXPIRED')
+    }
+
+    if (response.status === 401) {
+      return null
     }
 
     throw new Error('유저 정보 조회 실패')
