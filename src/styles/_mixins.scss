@@ -98,6 +98,10 @@
   &::placeholder {
     color: color(neutral-400);
   }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 }
 
 // 카드 스타일

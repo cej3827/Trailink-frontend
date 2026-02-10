@@ -20,12 +20,15 @@ export default function LoadingSpinner({
 
   const containerClassNames = [
     styles.spinnerContainer,
+    'flex flex-col items-center justify-center',
     fullScreen && styles.fullScreen,
+    fullScreen && 'fixed inset-0',
     className
   ].filter(Boolean).join(' ')
 
   const spinnerClassNames = [
     styles.spinner,
+    'relative inline-block',
     styles[size],
     styles[color]
   ].filter(Boolean).join(' ')
@@ -66,7 +69,7 @@ export function ButtonSpinner({ size = 'sm' }: { size?: 'xs' | 'sm' }) {
     <LoadingSpinner
       size={size}
       color="current"
-      className={styles.buttonSpinner}
+      className={`${styles.buttonSpinner} inline-flex`}
     />
   )
 }

@@ -2,16 +2,10 @@
 @import "mixins";
 
 .spinnerContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: space(sm);
 }
 
 .fullScreen {
-  position: fixed;
-  inset: 0;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(2px);
   z-index: 9999;
@@ -22,8 +16,6 @@
 }
 
 .spinner {
-  position: relative;
-  display: inline-block;
   border-radius: 50%;
 }
 
@@ -108,10 +100,6 @@
   font-size: map-get($font-sizes, sm);
   color: color(gray-600);
   font-weight: map-get($font-weights, medium);
-}
-
-.buttonSpinner {
-  display: inline-flex;
 }
 
 // 스핀 애니메이션

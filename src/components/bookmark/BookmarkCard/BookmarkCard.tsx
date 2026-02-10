@@ -1,7 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import { Bookmark } from '@/types'
-import { Edit2, Trash2 } from 'lucide-react'
+import { Edit2, Link2, Trash2 } from 'lucide-react'
+import { useLinkPreview } from '@/hooks/useLinkPreview'
 
 type ViewMode = 'card' | 'list'
 
@@ -22,6 +24,22 @@ export default function BookmarkCard({
   onDelete,
   onClick
 }: BookmarkCardProps) {
+  const previewEnabled = viewMode === 'card'
+  const { data: preview, isLoading } = useLinkPreview(bookmark.bookmark_url, previewEnabled)
+
+  const getHostname = (url: string) => {
+    try {
+      const hostname = new URL(url).hostname
+      return hostname.replace(/^www\\./, '')
+    } catch {
+      return url
+    }
+  }
+
+  const previewTitle = bookmark.bookmark_title || preview?.title
+  const previewDescription = bookmark.bookmark_description || preview?.description
+  const previewSite = preview?.siteName || getHostname(bookmark.bookmark_url)
+  
   const handleClick = () => {
     if (onClick) {
       onClick(bookmark.bookmark_url)
@@ -43,10 +61,10 @@ export default function BookmarkCard({
   return (
     <div
       onClick={handleClick}
-      className={`relative group cursor-pointer transition-all duration-200 hover:shadow-lg ${
+      className={`relative group cursor-pointer transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 ${
         viewMode === 'card'
-          ? 'bg-white border border-neutral-200 rounded-lg p-4 hover:border-neutral-300'
-          : 'bg-white border border-neutral-200 rounded-lg p-4 hover:border-neutral-300'
+          ? 'bg-neutral-50 border border-neutral-200 rounded-lg p-4 shadow-sm'
+          : 'bg-neutral-50 border border-neutral-200 rounded-lg p-4 shadow-sm'
       }`}
     >
       {/* 소유자에게만 보이는 수정/삭제 버튼 */}
@@ -55,7 +73,7 @@ export default function BookmarkCard({
           {onEdit && (
             <button
               onClick={handleEdit}
-              className="p-1.5 bg-white rounded-md shadow-md hover:bg-neutral-100 transition-colors"
+              className="p-1.5 bg-neutral-50 rounded-md shadow-md hover:bg-neutral-100 transition-colors"
               aria-label="북마크 수정"
             >
               <Edit2 size={14} className="text-secondary" />
@@ -64,7 +82,7 @@ export default function BookmarkCard({
           {onDelete && (
             <button
               onClick={handleDelete}
-              className="p-1.5 bg-white rounded-md shadow-md hover:bg-red-50 transition-colors"
+              className="p-1.5 bg-neutral-50 rounded-md shadow-md hover:bg-red-50 transition-colors"
               aria-label="북마크 삭제"
             >
               <Trash2 size={14} className="text-danger" />
@@ -76,21 +94,55 @@ export default function BookmarkCard({
       {viewMode === 'card' ? (
         <>
           {/* 썸네일 영역 */}
-          <div className="w-full h-20 rounded-md mb-3 flex items-center justify-center">
-            <div className="text-neutral-400 text-2xl">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-              </svg>
+          <div className="w-full h-28 rounded-md mb-3 overflow-hidden border border-neutral-200 bg-neutral-50 relative">
+            {preview?.image ? (
+              <Image
+                src={preview.image}
+                alt={previewTitle || 'Bookmark preview'}
+                fill
+                sizes="(min-width: 1024px) 320px, (min-width: 640px) 260px, 100vw"
+                className="object-cover"
+                priority={false}
+                unoptimized
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-50 via-neutral-100 to-neutral-200">
+                <Link2 className="w-6 h-6 text-neutral-400" />
+              </div>
+            )}
+
+            {isLoading && (
+              <div className="absolute inset-0 bg-neutral-100/70 animate-pulse" />
+            )}
+
+            <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/45 via-black/20 to-transparent">
+              <div className="flex items-center gap-2">
+                {preview?.favicon ? (
+                  <Image
+                    src={preview.favicon}
+                    alt={previewSite}
+                    width={16}
+                    height={16}
+                    className="w-4 h-4 rounded-sm bg-neutral-50/90 p-0.5"
+                    unoptimized
+                  />
+                ) : (
+                  <div className="w-4 h-4 rounded-sm bg-neutral-50/90 flex items-center justify-center text-[10px] text-neutral-700">
+                    {previewSite.slice(0, 1).toUpperCase()}
+                  </div>
+                )}
+                <span className="text-[11px] font-medium text-white truncate">{previewSite}</span>
+              </div>
             </div>
           </div>
 
           {/* 북마크 정보 */}
           <div className="space-y-2">
             <h3 className="font-medium text-accent text-sm group-hover:text-primary transition-colors line-clamp-2">
-              {bookmark.bookmark_title}
+              {previewTitle}
             </h3>
             <p className="text-xs text-secondary line-clamp-2">
-              {bookmark.bookmark_description}
+              {previewDescription}
             </p>
           </div>
         </>
