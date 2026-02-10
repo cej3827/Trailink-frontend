@@ -1,0 +1,73 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.root {
+  z-index: map-get($z-indexes, modal-backdrop);
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.45);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.panel {
+  max-width: 32rem;
+  background-color: color(cleanWhite);
+  border-left: 1px solid color(neutral-200);
+  box-shadow: map-get($shadows, xl);
+  animation: slideInRight 0.25s ease-out;
+}
+
+.panelStatic {
+  animation: none;
+}
+
+.overlayStatic {
+  animation: none;
+}
+
+.sm { max-width: 24rem; }
+.md { max-width: 30rem; }
+.lg { max-width: 36rem; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: space(lg);
+  border-bottom: 1px solid color(neutral-200);
+}
+
+.title {
+  font-size: map-get($font-sizes, lg);
+  font-weight: map-get($font-weights, semibold);
+  color: color(gray-900);
+  margin: 0;
+}
+
+.closeButton {
+  margin-left: space(md);
+}
+
+.content {
+  padding: space(lg);
+  overflow-y: auto;
+  flex: 1;
+  @include custom-scrollbar;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

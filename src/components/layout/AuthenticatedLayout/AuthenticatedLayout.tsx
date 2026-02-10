@@ -21,7 +21,7 @@ export default function AuthenticatedLayout({ children }: AuthenticatedLayoutPro
   // 화면 크기 감지 및 모바일에서 초기 상태 설정
   useEffect(() => {
     const checkMobile = () => {
-      const mobile = window.innerWidth < 420
+      const mobile = window.innerWidth < 768
       setIsMobile(mobile)
       
       // 모바일로 전환될 때 사이드바 닫기
@@ -52,17 +52,17 @@ export default function AuthenticatedLayout({ children }: AuthenticatedLayoutPro
   
 
   return (
-    <div className={`${styles.layout} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
+    <div className={`${styles.layout} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed} flex h-[100dvh] flex-col overflow-hidden`}>
       {/* 헤더 */}
       <Header />
       
       {/* 메인 컨테이너 */}
-      <div className={styles.main}>
+      <div className={`${styles.main} flex min-h-0 flex-1 overflow-hidden`}>
         {/* 사이드바 */}
         {sidebarOpen && <Sidebar isMobile={isMobile} />}
         
-        <main className={styles.content}>
-          <div className={styles.container}>
+        <main className={`${styles.content} relative min-h-0 flex-1 overflow-y-auto`}>
+          <div className={`${styles.container} mx-auto`}>
             {children}
           </div>
         </main>

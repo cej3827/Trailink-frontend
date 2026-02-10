@@ -10,11 +10,6 @@
     @include button-secondary;
   }
   
-  // &:focus {
-  //   outline: 2px solid color(primary);
-  //   outline-offset: 2px;
-  // }
-  
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
@@ -110,15 +105,6 @@
   width: 100%;
 }
 
-// 아이콘 스타일
-.leftIcon,
-.rightIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 .leftIcon {
   margin-right: space(xs);
 }
@@ -129,14 +115,5 @@
 
 // 로딩 스피너
 .loadingSpinner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-right: space(xs);
-}
-
-// 버튼 텍스트
-.buttonText {
-  display: flex;
-  align-items: center;
 }

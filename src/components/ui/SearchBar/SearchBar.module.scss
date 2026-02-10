@@ -1,68 +1,64 @@
 @import "variables";
 @import "mixins";
 
-.searchForm {
-  width: 100%;
-}
-
 .searchContainer {
-  height: 2.5rem;
-  position: relative;
-  display: flex;
-  align-items: center;
-  border: 1px solid color(gray-700);
-  border-radius: 0.25rem;
-  // transition: all map-get($transitions, base);
+  border: 1px solid color(neutral-200);
+  border-radius: 999px;
+  background-color: color(neutral-50);
+  transition: border-color map-get($transitions, fast), box-shadow map-get($transitions, fast), background-color map-get($transitions, fast);
   
   &:focus-within {
     border-color: color(primary);
-    box-shadow: 0 0 0 3px rgba(color(gray-700), 0.1);
+    background-color: color(cleanWhite);
+    box-shadow: 0 0 0 4px rgba(color(primary), 0.08);
     outline: none;
   }
   
   &:hover:not(.disabled) {
-    border-color: color(gray-400);
+    border-color: color(neutral-300);
   }
   
   &.disabled {
-    background-color: color(gray-50);
-    border-color: color(gray-200);
+    background-color: color(neutral-100);
+    border-color: color(neutral-200);
     cursor: not-allowed;
   }
 }
 
 .searchIcon {
-  position: absolute;
-  left: 0.75rem;
-  color: color(gray-600);
+  color: color(secondary);
   z-index: 1;
   flex-shrink: 0; // 아이콘 크기 고정
   
   .disabled & {
-    color: color(gray-300);
+    color: color(neutral-300);
   }
 }
 
 .searchInput {
-  flex: 1;
   padding: 0 2.5rem 0 2.75rem;
-  min-width: 0;
   border: none;
   background: transparent;
   font-size: map-get($font-sizes, sm);
-  color: color(gray-900);
+  color: color(accent);
   outline: none;
   
   &::placeholder {
-    color: color(gray-500);
+    color: color(secondary-light);
   }
   
   &:disabled {
     cursor: not-allowed;
-    color: color(gray-400);
+    color: color(neutral-400);
     
     &::placeholder {
-      color: color(gray-300);
+      color: color(neutral-300);
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .searchInput {
+    font-size: 16px;
   }
 }

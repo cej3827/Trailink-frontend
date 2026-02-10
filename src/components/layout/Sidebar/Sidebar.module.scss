@@ -3,11 +3,9 @@
 
 .sidebar {
   width: 18rem;
-  background-color: color(white);
-  border-right: 1px solid color(neutral-200);
+  background-color: color(neutral-100);
+  border-right: 1px solid color(neutral-300);
   padding: space(lg);
-  overflow-y: auto;
-  flex-shrink: 0;
   @include custom-scrollbar;
   
   &.hidden {
@@ -16,14 +14,26 @@
 
   // 모바일 전체화면 스타일
   &.mobile {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 50;
     border-right: none;
     animation: slideIn 0.35s ease;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 16rem;
+    padding: space(md);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    padding: space(md);
+  }
+
+  .header {
+    margin-bottom: space(md);
   }
 }
 
@@ -47,16 +57,11 @@
 
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-bottom: space(lg);
   padding-left: space(sm);
 }
 
 .title {
-  display: flex;
-  align-items: center;
   gap: space(sm);
   font-size: map-get($font-sizes, base);
   font-weight: map-get($font-weights, semibold);
@@ -89,12 +94,9 @@
   padding: space(md);
   margin-bottom: space(lg);
   border-bottom: 1px solid color(neutral-200);
-  position: relative;
 }
 
 .profileHeader {
-  display: flex;
-  align-items: center;
   gap: space(lg);
   margin-bottom: space(md);
 }
@@ -105,9 +107,6 @@
   border-radius: 50%;
   background: color(primary);
   color: color(white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: map-get($font-sizes, lg);
   font-weight: map-get($font-weights, semibold);
   flex-shrink: 0;
@@ -140,20 +139,11 @@
   }
 }
 
-.profileActions {
-  display: flex;
-  flex-direction: column;
-}
-
 .actionButton {
-  display: flex;
-  align-items: center;
   gap: space(sm);
-  width: 100%;
   padding: space(sm) space(md);
   border: none;
   background: none;
-  text-align: left;
   border-radius: 0.25rem;
   cursor: pointer;
   font-size: map-get($font-sizes, sm);
@@ -185,20 +175,15 @@
 }
 
 .nav {
-  display: flex;
-  flex-direction: column;
   gap: space(xs);
 }
 
 .categoryItem {
-  display: flex;
   padding: space(sm) space(md);
-  align-items: center;
   gap: space(sm);
   border: none;
   background: none;
   cursor: pointer;
-  width: 100%;
   color: color(primary);
   border-radius: 0.5rem;
   transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
@@ -245,13 +230,11 @@
 }
 
 .categoryIcon {
-  flex-shrink: 0;
   color: color(secondary-light);
   transition: color 0.25s ease;
 }
 
 .categoryName {
-  flex: 1;
   @include truncate;
 }
 
@@ -275,9 +258,6 @@
 .emptyState {
   padding: space(xs) space(xs);
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: space(md);
 }
 
@@ -289,9 +269,6 @@
 }
 
 .newCategoryButton {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   padding: space(md) space(md);
   gap: space(xs);
   margin-top: space(md);
@@ -299,13 +276,11 @@
   background: none;
   cursor: pointer;
   transition: map-get($transitions, fast);
-  width: 100%;
-  text-align: left;
   font-size: map-get($font-sizes, sm);
   color: color(secondary);
   border-radius: 0.5rem;
   font-weight: map-get($font-weights, medium);
-  
+
   &:hover {
     background-color: color(neutral-100);
     color: color(primary-hover);
@@ -314,4 +289,39 @@
   &:active {
     background-color: color(neutral-200);
   }
+}
+
+.inlineForm {
+  // margin-top: space(sm);
+  padding: space(md);
+  border-radius: 0.6rem;
+  background-color: color(cleanWhite);
+  border: 1px solid color(neutral-200);
+  box-shadow: map-get($shadows, sm);
+  gap: space(md);
+}
+
+.inlineField {
+  gap: space(xs);
+}
+
+.inlineLabel {
+  font-size: map-get($font-sizes, xs);
+  font-weight: map-get($font-weights, medium);
+  color: color(secondary);
+}
+
+.inlineInput,
+.inlineTextarea {
+  @include input-base;
+  background-color: color(white);
+  border-radius: 0.4rem;
+}
+
+.inlineTextarea {
+  resize: none;
+}
+
+.inlineActions {
+  gap: space(sm);
 }

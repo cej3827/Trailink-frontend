@@ -5,6 +5,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+html,
+body {
+  background-color: color(neutral-100);
+}
+
 
 // 포커스 아웃라인 제거 
 button:focus,
@@ -24,7 +29,14 @@ button:focus-visible,
 select:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid color(primary);
   outline-offset: 2px;
 }
 
+@media (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
