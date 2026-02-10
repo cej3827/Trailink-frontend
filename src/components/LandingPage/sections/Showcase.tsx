@@ -7,12 +7,12 @@ const shots = [
   {
     title: '카테고리로 한 번에 정리',
     desc: '분류 기준을 만들고 링크에 맥락을 남겨요.',
-    src: '/images/landing/feature-bookmarks.png',
+    src: '/images/landing/landing-hero-2.png',
   },
   {
     title: '컬렉션을 정렬/공유',
     desc: '링크를 원하는대로 정렬하고 공유해요.',
-    src: '/images/landing/feature-profile.png',
+    src: '/images/landing/landing-hero-3.png',
   },
 ]
 

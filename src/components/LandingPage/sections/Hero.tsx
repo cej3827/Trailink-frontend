@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { useReveal } from '@/hooks/useReveal'
 import Image from 'next/image'
 
@@ -11,6 +12,21 @@ type Props = {
 
 export default function Hero({ onLoginClick }: Props) {
   const { ref, visible } = useReveal<HTMLDivElement>(0.2)
+  const heroShots = [
+    { src: '/images/landing/landing-hero-1.png', alt: 'Trailink 서비스 화면 미리보기 1' },
+    { src: '/images/landing/landing-hero-2.png', alt: 'Trailink 서비스 화면 미리보기 2' },
+    { src: '/images/landing/landing-hero-3.png', alt: 'Trailink 서비스 화면 미리보기 3' },
+    { src: '/images/landing/landing-hero-4.png', alt: 'Trailink 서비스 화면 미리보기 4' },
+  ]
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % heroShots.length)
+    }, 1400)
+
+    return () => clearInterval(interval)
+  }, [heroShots.length])
 
   return (
     <section className="relative overflow-hidden">
@@ -25,7 +41,7 @@ export default function Hero({ onLoginClick }: Props) {
         <div
           ref={ref}
           className={[
-            'grid gap-10 lg:gap-12 lg:grid-cols-2 items-center transition-all duration-700',
+            'grid gap-10 lg:gap-12 lg:grid-cols-[1fr_0.8fr] items-center transition-all duration-700',
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6',
           ].join(' ')}
         >
@@ -85,46 +101,34 @@ export default function Hero({ onLoginClick }: Props) {
             </div>
           </div>
 
-          {/* 우측 목업(이미지 대신 CSS로) */}
-          {/* <div className="lg:justify-self-end">
-            <div className="rounded-3xl border bg-neutral-50 shadow-sm overflow-hidden">
-              <div className="p-4 border-b flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-neutral-200" />
-                <span className="h-3 w-3 rounded-full bg-neutral-200" />
-                <span className="h-3 w-3 rounded-full bg-neutral-200" />
-                <div className="ml-3 h-8 flex-1 rounded-xl bg-neutral-100" />
-              </div>
-              <div className="p-6 space-y-4">
-                <div className="h-10 rounded-2xl bg-neutral-100" />
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="h-28 rounded-2xl bg-neutral-100" />
-                  <div className="h-28 rounded-2xl bg-neutral-100" />
-                </div>
-                <div className="h-28 rounded-2xl bg-neutral-100" />
-                <div className="flex gap-2">
-                  <div className="h-10 w-24 rounded-xl bg-neutral-100" />
-                  <div className="h-10 w-28 rounded-xl bg-neutral-100" />
-                </div>
-              </div>
-            </div> */}
-
-            {/* 우측 목업 이미지 (next/image 최적화) */}
-            <div className="lg:justify-self-end">
-              <div className="rounded-3xl border bg-neutral-50 shadow-sm overflow-hidden">
-                <div className="relative aspect-[16/10] w-full max-w-[640px]">
-                  <Image
-                    src="/images/landing/landing-hero.png"
-                    alt="Trailink 서비스 화면 미리보기"
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 640px, (min-width: 640px) 560px, 100vw"
-                    className="object-cover"
-                  />
+            {/* 우측 목업 이미지 */}
+            <div className="lg:justify-self-stretch">
+              <div className="rounded-2xl border border-neutral-300 bg-neutral-100 shadow-md overflow-hidden">
+                <div className="relative aspect-[16/10] w-full">
+                  {heroShots.map((shot, index) => (
+                    <div
+                      key={shot.src}
+                      className={[
+                        'absolute inset-0 transition-opacity duration-1000 ease-in-out',
+                        index === activeIndex ? 'opacity-100' : 'opacity-0',
+                      ].join(' ')}
+                      aria-hidden={index !== activeIndex}
+                    >
+                      <Image
+                        src={shot.src}
+                        alt={shot.alt}
+                        fill
+                        priority={index === 0}
+                        sizes="(min-width: 1024px) 640px, (min-width: 640px) 560px, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
 
             <p className="mt-3 text-xs text-neutral-500">
-              * 포트폴리오에서는 실제 구현 화면 캡처를 사용했습니다.
+              * 실제 구현 화면 캡처를 사용했습니다.
             </p>
           </div>
         </div>
